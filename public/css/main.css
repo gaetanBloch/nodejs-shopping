@@ -6,7 +6,6 @@ body {
 
 main {
   padding: 1rem;
-  text-align: center;
 }
 
 .main-header {
@@ -32,7 +31,6 @@ main {
 .main-header__item {
   margin: 0 1rem;
   padding: 0;
-
 }
 
 .main-header__item a {
