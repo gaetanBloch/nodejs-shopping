@@ -7,7 +7,7 @@ const router = express.Router();
 
 // GET /admin/add-product
 router.get('/add-product', (req, res, next) => {
-  res.sendFile(path.join(rootDir, 'views', 'admin.html'));
+  res.sendFile(path.join(rootDir, 'views', 'add-product.html'));
 });
 
 // POST /admin/add-product
