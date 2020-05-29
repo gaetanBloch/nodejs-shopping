@@ -54,8 +54,38 @@
       color: #6200ff;
     }
 
-    .main-content {
-      text-align: center;
+    .form-control {
+      margin: 1rem 0;
+    }
+
+    .form-control label,
+    .form-control input {
+      display: block;
+    }
+
+    .form-control input {
+      border: 1px solid #d3a612;
+      font: inherit;
+      border-radius: 2px;
+    }
+
+    .form-control input:focus {
+      border-color: #6200ff;
+    }
+
+    button {
+      font: inherit;
+      border: 1px solid #6200ff;
+      color: #6200ff;
+      background-color: white;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    button:hover,
+    button:active {
+      background-color: #6200ff;
+      color: white;
     }
   </style>
 </head>
@@ -75,8 +105,12 @@
   </header>
 
   <main>
-    <form action="/admin/add-product" method="POST">
-      <input type="text" name="title">
+    <form class="product-form" action="/admin/add-product" method="POST">
+      <div class="form-control">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title">
+      </div>
+
       <button type="submit">Add product</button>
     </form>
   </main>
