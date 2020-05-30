@@ -10,7 +10,10 @@ const notFoundRoutes = require('./routes/not-found');
 
 const app = express();
 
-app.engine('hbs', expressHbs());
+app.engine('hbs', expressHbs({
+  layoutsDir: 'views/layouts/',
+  defaultLayout: 'main'
+}));
 app.set('view engine', 'hbs');
 app.set('views', 'views');
 
