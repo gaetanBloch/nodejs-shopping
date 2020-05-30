@@ -27,9 +27,10 @@
   <main>
     {{#if hasProducts }}
       <div class="grid">
+        {{#each products}}
         <article class="card product-item">
           <header class="card__header">
-            <h1 class="product__title">Great Book</h1>
+            <h1 class="product__title">{{ this.title }}</h1>
           </header>
           <div class="card__image">
             <img
@@ -45,6 +46,7 @@
             <button class="btn">Add to Cart</button>
           </div>
         </article>
+        {{/each}}
       </div>
     {{ else }}
       <h1>No Products to display...</h1>
