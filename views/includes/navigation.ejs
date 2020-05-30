@@ -2,10 +2,13 @@
   <nav role="navigation" class="main-header__nav">
     <ul class="main-header__item-list">
       <li class="main-header__item">
-        <a href="/">Shop</a>
+        <a href="/" class="<%= path === '/' ? 'active' : ''  %>">Shop</a>
       </li>
       <li class="main-header__item">
-        <a href="/admin/add-product">Add Product</a>
+        <a href="/admin/add-product"
+          class="<%= path === '/admin/add-product' ? 'active' : ''  %>">
+          Add Product
+        </a>
       </li>
     </ul>
   </nav>
