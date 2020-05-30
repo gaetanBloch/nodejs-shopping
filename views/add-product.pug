@@ -21,6 +21,6 @@ html(lang="en")
     form.product-form(action="/admin/add-product", method="POST")
       .form-control
         label(for="title") Title
-        input(type="text", name="title", id="title")
+        input#title(type="text", name="title")
 
       button.btn(type="submit") Add Product
