@@ -4,14 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ title }}</title>
+  <title><%= title %></title>
   <link rel="stylesheet" href="/css/main.css">
-  {{#if productCSS}}
-  <link rel="stylesheet" href="/css/product.css">
-  {{/if}}
-  {{#if formsCSS}}
-  <link rel="stylesheet" href="/css/forms.css">
-  {{/if}}
 </head>
 
 <body>
@@ -19,17 +13,18 @@
     <nav role="navigation" class="main-header__nav">
       <ul class="main-header__item-list">
         <li class="main-header__item">
-          <a href="/" class="{{#if activeShop }}active{{/if}}">Shop</a>
+          <a href="/">Shop</a>
         </li>
         <li class="main-header__item">
-          <a href="/admin/add-product"
-            class="{{#if activeProduct }}active{{/if}}">Add Product</a>
+          <a href="/admin/add-product">Add Product</a>
         </li>
       </ul>
     </nav>
   </header>
 
-  {{{ body }}}
+  <main style="text-align: center">
+    <h1>404 Page Not Found!</h1>
+  </main>
 </body>
 
 </html>
