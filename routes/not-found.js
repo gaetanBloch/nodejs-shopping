@@ -6,8 +6,7 @@ const rootDir = require('../util/path');
 const router = express.Router();
 
 router.use((req, res, next) => {
-  res.status(404);
-  res.sendFile(path.join(rootDir, 'views', 'not-found.html'));
+  res.status(404).render('not-found');
 });
 
 module.exports = router;
