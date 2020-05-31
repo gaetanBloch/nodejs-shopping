@@ -20,12 +20,15 @@ const getProductsFromFile = (callback) => {
 };
 
 module.exports = class Product {
-  constructor(title) {
+  constructor(title, imageUrl, description, price) {
     this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
   }
 
   save = () => {
-    getProductsFromFile(products => {
+    getProductsFromFile((products) => {
       products.push(this);
       // Persists the products to the file
       fs.writeFile(productsFile, JSON.stringify(products), (err) => {
@@ -33,7 +36,7 @@ module.exports = class Product {
           console.log(err);
         }
       });
-    })
+    });
   };
 
   static fetchAll = (callback) => {
