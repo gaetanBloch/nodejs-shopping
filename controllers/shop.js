@@ -22,9 +22,12 @@ exports.getProducts = (req, res, next) => {
 
 exports.getProduct = (req, res, next) => {
   Product.findById(req.params.productId, (product) => {
-    console.log(product);
+    res.render('shop/product-detail', {
+      title: product.title,
+      path: '/products',
+      product,
+    });
   });
-  res.redirect('/');
 };
 
 exports.getCart = (req, res, next) => {
