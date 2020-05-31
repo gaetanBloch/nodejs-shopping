@@ -31,3 +31,12 @@ exports.getProducts = (req, res, next) => {
     });
   });
 };
+
+exports.getCart = (req, res, next) => {
+  Product.fetchAll((products) => {
+    res.render('shop/cart', {
+      title: 'Cart',
+      path: '/cart',
+    });
+  });
+};
