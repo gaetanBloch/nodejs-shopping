@@ -13,12 +13,21 @@ exports.postAddProduct = (req, res, next) => {
   res.redirect('/');
 };
 
+exports.getIndex = (req, res, next) => {
+  Product.fetchAll((products) => {
+    res.render('shop/index', {
+      title: 'Index',
+      path: '/',
+    });
+  });
+};
+
 exports.getProducts = (req, res, next) => {
   Product.fetchAll((products) => {
     res.render('shop/product-list', {
       products,
       title: 'Product List',
-      path: '/',
+      path: '/products',
     });
   });
 };
