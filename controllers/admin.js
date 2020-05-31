@@ -8,9 +8,12 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  res.render('admin/products', {
-    title: 'Products',
-    path: '/admin/products',
+  Product.fetchAll((products) => {
+    res.render('admin/products', {
+      products,
+      title: 'Admin Products',
+      path: '/admin/products',
+    });
   });
 };
 
