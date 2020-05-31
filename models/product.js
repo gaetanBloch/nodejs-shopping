@@ -15,12 +15,15 @@ module.exports = class Product {
     fs.readFile(p, (err, fileContent) => {
       let products = [];
       if (!err) {
-        // If there are no error then the file exists
+        // If there is no error then the file exists and we can read the
+        // products
         products = JSON.parse(fileContent);
       }
       products.push(this);
       // Persists the products to the file
-      fs.writeFile(p, JSON.stringify(products));
+      fs.writeFile(p, JSON.stringify(products), (err) => {
+        console.log(err);
+      });
     });
   }
 
