@@ -14,11 +14,9 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getIndex = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render('shop/index', {
-      title: 'Index',
-      path: '/',
-    });
+  res.render('shop/index', {
+    title: 'Index',
+    path: '/',
   });
 };
 
@@ -33,10 +31,15 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getCart = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render('shop/cart', {
-      title: 'Cart',
-      path: '/cart',
-    });
+  res.render('shop/cart', {
+    title: 'Cart',
+    path: '/cart',
+  });
+};
+
+exports.getCheckout = (req, res, next) => {
+  res.render('shop/checkout', {
+    title: 'Checkout',
+    path: '/checkout',
   });
 };
