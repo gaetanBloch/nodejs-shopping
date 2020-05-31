@@ -34,9 +34,9 @@ module.exports = class Product {
     return [];
   };
 
-  static fetchAll = () => {
+  static fetchAll = (callback) => {
     fs.readFile(productsFile, (err, fileContent) => {
-      return Product.readProducts(err, fileContent);
+      callback(Product.readProducts(err, fileContent));
     });
   };
 };
