@@ -20,6 +20,10 @@
             <h2 class="product__price">$<%= product.price %></h2>
             <p class="product__description"><%= product.description %></p>
           </div>
+          <form action="/cart" method="POST">
+            <input type="hidden" name="productId" value="<%= product.id %>">
+            <button class="btn" type="submit">Add to Cart</button>
+          </form>
         </article>
         <% } %>
       </div>

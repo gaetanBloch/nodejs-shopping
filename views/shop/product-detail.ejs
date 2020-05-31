@@ -14,7 +14,8 @@
     </div>
     <h2>$<%= product.price %></h2>
     <p><%= product.description %></p>
-    <form action="/add-to-cart" method="POST">
+    <form action="/cart" method="POST">
+      <input type="hidden" name="productId" value="<%= product.id %>">
       <button class="btn" type="submit">Add to Cart</button>
     </form>
   </main>
