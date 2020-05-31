@@ -10,7 +10,9 @@ module.exports = class Product {
 
   save() {
     const p = path.join(
-      path.dirname(process.mainModule.filename, 'data', 'products.json')
+      path.dirname(process.mainModule.filename),
+      'data',
+      'products.json'
     );
     fs.readFile(p, (err, fileContent) => {
       let products = [];
@@ -22,7 +24,9 @@ module.exports = class Product {
       products.push(this);
       // Persists the products to the file
       fs.writeFile(p, JSON.stringify(products), (err) => {
-        console.log(err);
+        if (err) {
+          console.log(err);
+        }
       });
     });
   }
