@@ -7,14 +7,25 @@ const productsFile = path.join(
   'products.json'
 );
 
+const getProductsFromFile = (callback) => {
+  fs.readFile(productsFile, (err, fileContent) => {
+    if (err) {
+      callback([]);
+    } else {
+      // If there is no error then the file exists and we can read the
+      // products
+      callback(JSON.parse(fileContent));
+    }
+  });
+};
+
 module.exports = class Product {
   constructor(title) {
     this.title = title;
   }
 
   save = () => {
-    fs.readFile(productsFile, (err, fileContent) => {
-      const products = Product.readProducts(err, fileContent);
+    getProductsFromFile(products => {
       products.push(this);
       // Persists the products to the file
       fs.writeFile(productsFile, JSON.stringify(products), (err) => {
@@ -22,21 +33,10 @@ module.exports = class Product {
           console.log(err);
         }
       });
-    });
-  };
-
-  static readProducts = (err, fileContent) => {
-    if (!err) {
-      // If there is no error then the file exists and we can read the
-      // products
-      return JSON.parse(fileContent);
-    }
-    return [];
+    })
   };
 
   static fetchAll = (callback) => {
-    fs.readFile(productsFile, (err, fileContent) => {
-      callback(Product.readProducts(err, fileContent));
-    });
+    getProductsFromFile(callback);
   };
 };
