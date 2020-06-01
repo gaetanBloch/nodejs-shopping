@@ -10,14 +10,7 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  const product = new Product(
-    req.body.title,
-    req.body.imageUrl,
-    req.body.description,
-    +req.body.price
-  );
-  product.save();
-  res.redirect('/');
+  postProduct(null, '/products', req, res);
 };
 
 exports.getProducts = (req, res, next) => {
@@ -48,4 +41,20 @@ exports.getEditProduct = (req, res, next) => {
       product
     });
   });
+};
+
+exports.postEditProduct = (req, res, next) => {
+  postProduct(req.body.id, '/admin/products', req, res);
+};
+
+const postProduct = (id, redirect, req, res) => {
+  const product = new Product(
+    id,
+    req.body.title,
+    req.body.imageUrl,
+    req.body.description,
+    +req.body.price
+  );
+  product.save();
+  res.redirect(redirect);
 };
