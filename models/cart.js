@@ -20,7 +20,7 @@ module.exports = class Cart {
       );
 
       // Add new product or increase the quantity
-      // Update the total price
+      // Update the total price and total quantity
       let updatedProduct;
       if (existingProductId !== -1) {
         const existingProduct = cart.products[existingProductId];
@@ -34,6 +34,7 @@ module.exports = class Cart {
         cart.products = [...cart.products, updatedProduct];
       }
       cart.totalPrice = cart.totalPrice + product.price;
+      cart.quantity = cart.quantity + 1;
 
       // Save the cart to the file system
       fs.writeFile(cartFile, JSON.stringify(cart), (error) => {
