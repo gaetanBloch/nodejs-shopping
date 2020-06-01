@@ -7,25 +7,39 @@
   <%- include('../includes/navigation.ejs') %>
 
   <main>
-    <form class="product-form" action="/admin/add-product" method="POST">
+    <form class="product-form"
+          method="POST"
+          action="/admin/<% if(editing) { %>edit-product
+            <% } else { %>add/product<% } %>">
       <div class="form-control">
         <label for="title">Title</label>
-        <input type="text" name="title" id="title">
+        <input type="text" name="title" id="title" value="<%= product.title %>">
       </div>
       <div class="form-control">
         <label for="imageUrl">Image URL</label>
-        <input type="text" name="imageUrl" id="imageUrl">
+        <input type="text"
+               name="imageUrl"
+               id="imageUrl"
+               value="<%= product.imageUrl %>">
       </div>
-      <div class="form-control">
+      <div class=" form-control">
         <label for="price">Price</label>
-        <input type="number" name="price" id="price" step="0.01">
+        <input type="number"
+               name="price"
+               id="price"
+               step="0.01"
+               value="<%= product.price %>">
       </div>
       <div class="form-control">
         <label for="description">Description</label>
-        <textarea name="description" id="description" rows="5"></textarea>
+        <textarea name="description"
+                  id="description"
+                  rows="5"><%= product.description %></textarea>
       </div>
 
-      <button class="btn" type="submit">Add Product</button>
+      <button class="btn" type="submit">
+        <% if(editing) { %>Update Product<% } else { %>Add Product<% } %>
+      </button>
     </form>
   </main>
 
