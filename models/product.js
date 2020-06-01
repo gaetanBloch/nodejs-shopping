@@ -63,7 +63,9 @@ module.exports = class Product {
       });
       // Persists the products to the file
       fs.writeFile(productsFile, JSON.stringify(updatedProducts), (err) => {
-        if (err) {
+        if (!err) {
+          // Remove from the cart
+        } else {
           console.log(err);
         }
       });
