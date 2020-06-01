@@ -6,7 +6,7 @@ const { getFile } = require('./utils');
 const cartFile = getFile('cart.json');
 
 module.exports = class Cart {
-  static addProduct(product, price) {
+  static addProduct(product) {
     // Fetch the previous cart
     fs.readFile(cartFile, (error, fileContent) => {
       let cart = { products: [], quantity: 0 };
@@ -33,7 +33,7 @@ module.exports = class Cart {
         updatedProduct = { ...product, quantity: 1 };
         cart.products = [...cart.products, updatedProduct];
       }
-      cart.totalPrice = cart.totalPrice + price;
+      cart.totalPrice = cart.totalPrice + product.price;
 
       // Save the cart to the file system
       fs.writeFile(cartFile, JSON.stringify(cart), (error) => {
