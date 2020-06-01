@@ -28,7 +28,7 @@ module.exports = class Cart {
           ...existingProduct,
           quantity: existingProduct.quantity + 1,
         };
-        cart.products[existingProductId] = existingProduct;
+        cart.products[existingProductId] = updatedProduct;
       } else {
         updatedProduct = { ...product, quantity: 1 };
         cart.products = [...cart.products, updatedProduct];
