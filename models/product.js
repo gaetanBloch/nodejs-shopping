@@ -58,12 +58,11 @@ module.exports = class Product {
 
   static deleteById = (id) => {
     getProductsFromFile((products) => {
-      const existingProductIndex = products.findIndex((product) => {
-        return product.id === this.id;
+      const updatedProducts = products.filter((product) => {
+        return product.id !== id;
       });
-      products.splice(existingProductIndex, 1);
       // Persists the products to the file
-      fs.writeFile(productsFile, JSON.stringify(products), (err) => {
+      fs.writeFile(productsFile, JSON.stringify(updatedProducts), (err) => {
         if (err) {
           console.log(err);
         }

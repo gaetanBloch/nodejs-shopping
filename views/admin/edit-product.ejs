@@ -10,7 +10,7 @@
     <form class="product-form"
           method="POST"
           action="/admin/<% if(editing) { %>edit-product
-            <% } else { %>add/product<% } %>">
+            <% } else { %>add-product<% } %>">
       <div class="form-control">
         <label for="title">Title</label>
         <input type="text" name="title" id="title" value="<%= product.title %>">
