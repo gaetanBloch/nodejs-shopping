@@ -49,7 +49,7 @@ module.exports = class Cart {
     fs.readFile(cartFile, (error, fileContent) => {
       if (!error) {
         const cart = JSON.parse(fileContent);
-
+        
         // Update the total price and quantity
         const cartProduct = cart.products.find((p) => p.id === product.id);
         const quantity = cartProduct.quantity;
