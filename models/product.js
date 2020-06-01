@@ -3,8 +3,10 @@ const path = require('path');
 
 const { getFile } = require('./utils');
 
+const productsFile = getFile('products.json');
+
 const getProductsFromFile = (callback) => {
-  fs.readFile(getFile('products.json'), (err, fileContent) => {
+  fs.readFile(productsFile, (err, fileContent) => {
     if (err) {
       callback([]);
     } else {
