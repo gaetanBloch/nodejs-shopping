@@ -49,22 +49,28 @@ module.exports = class Cart {
     fs.readFile(cartFile, (error, fileContent) => {
       if (!error) {
         const cart = JSON.parse(fileContent);
-        
+
         // Update the total price and quantity
-        const cartProduct = cart.products.find((p) => p.id === product.id);
-        const quantity = cartProduct.quantity;
-        cart.quantity = cart.quantity - quantity;
-        cart.totalPrice = cart.totalPrice - quantity * product.price;
+        const cartProduct = cart.products.find(
+          (prod) => prod.id === product.id
+        );
+        if (cartProduct) {
+          const quantity = cartProduct.quantity;
+          cart.quantity = cart.quantity - quantity;
+          cart.totalPrice = cart.totalPrice - quantity * product.price;
 
-        // Remove the product from the cart
-        cart.products = cart.products.filter((prod) => prod.id !== product.id);
+          // Remove the product from the cart
+          cart.products = cart.products.filter(
+            (prod) => prod.id !== product.id
+          );
 
-        // Save the cart to the file system
-        fs.writeFile(cartFile, JSON.stringify(cart), (error) => {
-          if (error) {
-            console.log(error);
-          }
-        });
+          // Save the cart to the file system
+          fs.writeFile(cartFile, JSON.stringify(cart), (error) => {
+            if (error) {
+              console.log(error);
+            }
+          });
+        }
       } else {
         console.log(error);
       }
