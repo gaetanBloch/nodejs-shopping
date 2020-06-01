@@ -6,7 +6,11 @@
   <%- include('../includes/navigation.ejs') %>
 
   <main>
-    <h1>Nothing there...</h1>
+    <% if(products.length > 0) { %>
+      
+    <% } else { %>
+      <h1>Your Cart is empty...</h1>
+    <% } %>
   </main>
 
 <%- include('../includes/end.ejs') %>
