@@ -16,7 +16,7 @@ module.exports = class Cart {
 
       // Analyze the cart => Find existing product
       const existingProductIndex = cart.products.findIndex(
-        (p) => p.id === product.id
+        (prod) => prod.id === product.id
       );
 
       // Add new product or increase the quantity
@@ -30,7 +30,7 @@ module.exports = class Cart {
         };
         cart.products[existingProductIndex] = updatedProduct;
       } else {
-        updatedProduct = { ...product, quantity: 1 };
+        updatedProduct = { id: product.id, quantity: 1 };
         cart.products = [...cart.products, updatedProduct];
       }
       cart.totalPrice = cart.totalPrice + product.price;
