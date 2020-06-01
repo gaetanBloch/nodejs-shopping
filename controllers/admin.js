@@ -34,9 +34,17 @@ exports.getEditProduct = (req, res, next) => {
   if (!editMode) {
     return res.redirect('/');
   }
-  res.render('admin/edit-product', {
-    title: 'Edit Product',
-    path: '/admin/edit-product',
-    editing: editMode
+
+  Product.findById(req.params.productId, (product) => {
+    if (!product) {
+      return res.redirect('/');
+    }
+
+    res.render('admin/edit-product', {
+      title: 'Edit Product',
+      path: '/admin/edit-product',
+      editing: editMode,
+      product
+    });
   });
 };
