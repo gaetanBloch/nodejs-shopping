@@ -55,4 +55,19 @@ module.exports = class Product {
       callback(products.find((product) => product.id === id));
     });
   };
+
+  static deleteById = (id) => {
+    getProductsFromFile((products) => {
+      const existingProductIndex = products.findIndex((product) => {
+        return product.id === this.id;
+      });
+      products.splice(existingProductIndex, 1);
+      // Persists the products to the file
+      fs.writeFile(productsFile, JSON.stringify(products), (err) => {
+        if (err) {
+          console.log(err);
+        }
+      });
+    });
+  };
 };
