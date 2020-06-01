@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
+const Cart = require('./cart');
 const { getFile } = require('./utils');
 
 const productsFile = getFile('products.json');
@@ -58,13 +59,14 @@ module.exports = class Product {
 
   static deleteById = (id) => {
     getProductsFromFile((products) => {
+      const product = products.find((prod) => prod.id === id);
       const updatedProducts = products.filter((product) => {
         return product.id !== id;
       });
       // Persists the products to the file
       fs.writeFile(productsFile, JSON.stringify(updatedProducts), (err) => {
         if (!err) {
-          // Remove from the cart
+          Cart.deleteProduct(product);
         } else {
           console.log(err);
         }
