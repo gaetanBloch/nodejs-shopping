@@ -15,20 +15,20 @@ module.exports = class Cart {
       }
 
       // Analyze the cart => Find existing product
-      const existingProductId = cart.products.findIndex(
+      const existingProductIndex = cart.products.findIndex(
         (p) => p.id === product.id
       );
 
       // Add new product or increase the quantity
       // Update the total price and total quantity
       let updatedProduct;
-      if (existingProductId !== -1) {
-        const existingProduct = cart.products[existingProductId];
+      if (existingProductIndex !== -1) {
+        const existingProduct = cart.products[existingProductIndex];
         updatedProduct = {
           ...existingProduct,
-          quantity: existingProduct.quantity + 1,
+          quantity: existingProduct.quantity + 1
         };
-        cart.products[existingProductId] = updatedProduct;
+        cart.products[existingProductIndex] = updatedProduct;
       } else {
         updatedProduct = { ...product, quantity: 1 };
         cart.products = [...cart.products, updatedProduct];
@@ -42,6 +42,32 @@ module.exports = class Cart {
           console.log(error);
         }
       });
+    });
+  }
+
+  static deleteProduct(product) {
+    fs.readFile(cartFile, (error, fileContent) => {
+      if (!error) {
+        const cart = JSON.parse(fileContent);
+
+        // Remove the product from the cart
+        cart.products = cart.products.filter((prod) => prod.id !== product.id);
+
+        // Update the total price and quantity
+        const cartProduct = cart.products.find((prod) => p.id === product.id);
+        quantity = cartProduct.quantity;
+        cart.quantity = cart.quantity - quantity;
+        cart.totalPrice = cart.totalPrice - quantity * product.price;
+
+        // Save the cart to the file system
+        fs.writeFile(cartFile, JSON.stringify(cart), (error) => {
+          if (error) {
+            console.log(error);
+          }
+        });
+      } else {
+        console.log(error);
+      }
     });
   }
 };
