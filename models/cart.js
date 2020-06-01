@@ -6,7 +6,7 @@ const { getFile } = require('./utils');
 const cartFile = getFile('cart.json');
 
 module.exports = class Cart {
-  static addProduct(product) {
+  static addProduct = (product) => {
     // Fetch the previous cart
     fs.readFile(cartFile, (error, fileContent) => {
       let cart = { products: [], quantity: 0, totalPrice: 0 };
@@ -43,9 +43,9 @@ module.exports = class Cart {
         }
       });
     });
-  }
+  };
 
-  static deleteProduct(product) {
+  static deleteProduct = (product) => {
     fs.readFile(cartFile, (error, fileContent) => {
       if (!error) {
         const cart = JSON.parse(fileContent);
@@ -69,5 +69,16 @@ module.exports = class Cart {
         console.log(error);
       }
     });
-  }
+  };
+
+  static getCart = (callback) => {
+    fs.readFile(cartFile, (error, fileContent) => {
+      if (!error) {
+        callback(JSON.parse(fileContent));
+      } else {
+        console.log(error);
+        callback(null);
+      }
+    });
+  };
 };
