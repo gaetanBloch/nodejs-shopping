@@ -1,7 +1,6 @@
-const getFile = (file) => path.join(
-  path.dirname(process.mainModule.filename),
-  'data',
-  file
-);
+const path = require('path');
 
-exports.getFile = getFile; 
+const getFile = (file) =>
+  path.join(path.dirname(process.mainModule.filename), 'data', file);
+
+exports.getFile = getFile;
