@@ -7,7 +7,11 @@
 
   <main>
     <% if(products.length > 0) { %>
-      
+      <ul>
+        <% products.forEach((product) => { %>
+          <li><%= product.title %> (<%= product.quantity %>)</li>
+        <% }) %>
+      </ul>
     <% } else { %>
       <h1>Your Cart is empty...</h1>
     <% } %>
