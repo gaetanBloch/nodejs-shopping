@@ -9,7 +9,7 @@ module.exports = class Cart {
   static addProduct(product) {
     // Fetch the previous cart
     fs.readFile(cartFile, (error, fileContent) => {
-      let cart = { products: [], quantity: 0 };
+      let cart = { products: [], quantity: 0, totalPrice: 0 };
       if (!error) {
         cart = JSON.parse(fileContent);
       }
@@ -22,7 +22,7 @@ module.exports = class Cart {
       // Add new product or increase the quantity
       // Update the total price
       let updatedProduct;
-      if (existingProductId) {
+      if (existingProductId !== -1) {
         const existingProduct = cart.products[existingProductId];
         updatedProduct = {
           ...existingProduct,
