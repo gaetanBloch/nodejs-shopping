@@ -36,7 +36,7 @@ exports.getEditProduct = (req, res, next) => {
   }
   res.render('admin/edit-product', {
     title: 'Edit Product',
-    path: '/admin/add-product',
+    path: '/admin/edit-product',
     editing: editMode
   });
 };
