@@ -64,8 +64,8 @@ module.exports = class Product {
         return product.id !== id;
       });
       // Persists the products to the file
-      fs.writeFile(productsFile, JSON.stringify(updatedProducts), (err) => {
-        if (!err) {
+      fs.writeFile(productsFile, JSON.stringify(updatedProducts), (error) => {
+        if (!error) {
           Cart.deleteProduct(product);
         } else {
           console.log(err);

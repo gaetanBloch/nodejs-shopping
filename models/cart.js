@@ -50,14 +50,14 @@ module.exports = class Cart {
       if (!error) {
         const cart = JSON.parse(fileContent);
 
-        // Remove the product from the cart
-        cart.products = cart.products.filter((prod) => prod.id !== product.id);
-
         // Update the total price and quantity
-        const cartProduct = cart.products.find((prod) => p.id === product.id);
-        quantity = cartProduct.quantity;
+        const cartProduct = cart.products.find((p) => p.id === product.id);
+        const quantity = cartProduct.quantity;
         cart.quantity = cart.quantity - quantity;
         cart.totalPrice = cart.totalPrice - quantity * product.price;
+
+        // Remove the product from the cart
+        cart.products = cart.products.filter((prod) => prod.id !== product.id);
 
         // Save the cart to the file system
         fs.writeFile(cartFile, JSON.stringify(cart), (error) => {
