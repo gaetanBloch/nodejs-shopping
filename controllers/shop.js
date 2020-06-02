@@ -3,9 +3,9 @@ const Cart = require('../models/cart');
 
 const fetchAll = (file, title, path, res) => {
   Product.fetchAll()
-    .then(([rows, fieldData]) => {
+    .then(([products]) => {
       res.render(file, {
-        products: rows,
+        products,
         title: title,
         path
       });
@@ -22,13 +22,14 @@ exports.getProducts = (req, res, next) => {
 };
 
 exports.getProduct = (req, res, next) => {
-  Product.findById(req.params.productId, (product) => {
+  Product.findById(req.params.productId)
+  .then(([product]) => {
     res.render('shop/product-detail', {
-      title: product.title,
+      title: product[0].title,
       path: '/products',
-      product
+      product: product[0]
     });
-  });
+  }).catch((err) => console.log(err));;
 };
 
 exports.getCart = (req, res, next) => {
