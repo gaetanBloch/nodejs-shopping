@@ -1,32 +1,24 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 
-exports.getIndex = (req, res, next) => {
+const fetchAll = (file, title, path, res) => {
   Product.fetchAll()
     .then(([rows, fieldData]) => {
-      res.render('shop/index', {
+      res.render(file, {
         products: rows,
-        title: 'Shop',
-        path: '/'
+        title: title,
+        path
       });
     })
-    .catch((err) => {
-      console.log(err);
-    });
+    .catch((err) => console.log(err));
+};
+
+exports.getIndex = (req, res, next) => {
+  fetchAll('shop/index', 'Shop', '/', res);
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll()
-  .then(([rows, fieldData]) => {
-    res.render('shop/index', {
-      products: rows,
-      title: 'All Products',
-      path: '/products'
-    });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  fetchAll('shop/product-list', 'All Products', '/products', res);
 };
 
 exports.getProduct = (req, res, next) => {
