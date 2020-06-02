@@ -2,8 +2,8 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 const fetchAll = (file, title, path, res) => {
-  Product.fetchAll()
-    .then(([products]) => {
+  Product.findAll()
+    .then((products) => {
       res.render(file, {
         products,
         title: title,
