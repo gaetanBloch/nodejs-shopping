@@ -5,7 +5,10 @@ const path = require('path');
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
-const errorController = require('./controllers/error')
+const errorController = require('./controllers/error');
+const db = require('./utils/database');
+
+db.execute('SELECT * FROM products').then((result) => {});
 
 const app = express();
 
