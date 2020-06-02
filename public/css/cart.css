@@ -12,6 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem;
+  margin-bottom: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 
@@ -21,4 +22,3 @@
   font-size: 1.2rem;
   margin: 0;
 }
-

@@ -39,6 +39,7 @@ exports.getCart = (req, res, next) => {
 
 exports.postCart = (req, res, next) => {
   let fetchedCart;
+  let quantity = 1;
   req.user
     .getCart()
     .then((cart) => {
@@ -46,19 +47,15 @@ exports.postCart = (req, res, next) => {
       return cart.getProducts({ where: { id: req.body.productId } });
     })
     .then((products) => {
-      let product;
       if (products.length > 0) {
-        product = products[0];
+        // If the product is already in the cart
+        quantity += products[0].cartItem.quantity;
+        return products[0];
       }
-      let quantity = 1;
-      if (product) {
-        // TODO Add the quantity
-      }
-      return Product.findByPk(req.body.productId)
-        .then((prod) => {
-          fetchedCart.addProduct(prod, { through: { quantity } });
-        })
-        .catch((err) => console.log(err));
+      return Product.findByPk(req.body.productId);
+    })
+    .then((product) => {
+      return fetchedCart.addProduct(product, { through: { quantity } });
     })
     .then(() => res.redirect('/cart'))
     .catch((err) => console.log(err));
