@@ -28,5 +28,14 @@ User.hasMany(Product);
 
 sequelize
   .sync()
+  .then(() => {
+    return User.findByPk(1);
+  })
+  .then((user) => {
+    if (!user) {
+      return User.create({ name: 'Gaetan', email: 'gaetan.bloch@gmail.com' });
+    }
+    return user;
+  })
   .then(() => app.listen(3000))
   .catch((err) => console.log(err));
