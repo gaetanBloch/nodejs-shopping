@@ -2,8 +2,6 @@ const Product = require('../models/product');
 
 const { fetchAllProducts } = require('./utils');
 
-const postProduct = (redirect, req, res) => {};
-
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
     title: 'Add Product',
