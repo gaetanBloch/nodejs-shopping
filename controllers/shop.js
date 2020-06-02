@@ -1,18 +1,14 @@
 const Product = require('../models/product');
 const Cart = require('../models/cart');
 
-const fetchAll = (file, title, path, res) => {
-  Product.findAll()
-    .then((products) => res.render(file, { products, title, path }))
-    .catch((err) => console.log(err));
-};
+const { fetchAllProducts } = require('./utils');
 
 exports.getIndex = (req, res, next) => {
-  fetchAll('shop/index', 'Shop', '/', res);
+  fetchAllProducts('shop/index', 'Shop', '/', res);
 };
 
 exports.getProducts = (req, res, next) => {
-  fetchAll('shop/product-list', 'All Products', '/products', res);
+  fetchAllProducts('shop/product-list', 'All Products', '/products', res);
 };
 
 exports.getProduct = (req, res, next) => {
