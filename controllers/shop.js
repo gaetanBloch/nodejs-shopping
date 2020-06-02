@@ -16,12 +16,16 @@ exports.getIndex = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  Product.fetchAll((products) => {
-    res.render('shop/product-list', {
-      products,
+  Product.fetchAll()
+  .then(([rows, fieldData]) => {
+    res.render('shop/index', {
+      products: rows,
       title: 'All Products',
       path: '/products'
     });
+  })
+  .catch((err) => {
+    console.log(err);
   });
 };
 
