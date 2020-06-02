@@ -38,9 +38,10 @@ exports.getEditProduct = (req, res, next) => {
   if (!editMode) {
     return res.redirect('/admin/products');
   }
-
-  Product.findByPk(req.params.productId)
-    .then((product) => {
+  req.user
+    .getProducts({ where: { id: req.params.productId } })
+    .then((products) => {
+      const product = products[0];
       if (!product) {
         return res.redirect('/admin/products');
       }
