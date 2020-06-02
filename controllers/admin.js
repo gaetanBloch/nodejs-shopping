@@ -1,5 +1,19 @@
 const Product = require('../models/product');
 
+const postProduct = (id, redirect, req, res) => {
+  const product = new Product(
+    id,
+    req.body.title,
+    req.body.imageUrl,
+    req.body.description,
+    +req.body.price
+  );
+  product
+    .save()
+    .then(() => res.redirect(redirect))
+    .catch((err) => console.log(err));
+};
+
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
     title: 'Add Product',
@@ -50,16 +64,4 @@ exports.postEditProduct = (req, res, next) => {
 exports.postDeleteProduct = (req, res, next) => {
   Product.deleteById(req.body.id);
   res.redirect('/admin/products');
-};
-
-const postProduct = (id, redirect, req, res) => {
-  const product = new Product(
-    id,
-    req.body.title,
-    req.body.imageUrl,
-    req.body.description,
-    +req.body.price
-  );
-  product.save();
-  res.redirect(redirect);
 };
