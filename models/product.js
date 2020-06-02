@@ -1,5 +1,6 @@
+const db = require('../utils/database');
+
 const Cart = require('./cart');
-const { getFile } = require('./utils');
 
 module.exports = class Product {
   constructor(id, title, imageUrl, description, price) {
@@ -10,18 +11,13 @@ module.exports = class Product {
     this.price = price;
   }
 
-  save = () => {
-    
-  };
+  save = () => {};
 
   static fetchAll = () => {
-    
+    return db.execute('SELECT * FROM products');
   };
 
-  static findById = (id) => {
-    
-  };
+  static findById = (id) => {};
 
-  static deleteById = (id) => {
-    
+  static deleteById = (id) => {};
 };
