@@ -24,7 +24,13 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-  fetchAllProducts('admin/products', 'Admin Products', '/admin/products', res);
+  fetchAllProducts(
+    'admin/products',
+    'Admin Products',
+    '/admin/products',
+    req,
+    res
+  );
 };
 
 exports.getEditProduct = (req, res, next) => {
