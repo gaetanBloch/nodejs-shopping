@@ -38,10 +38,30 @@ exports.getCart = (req, res, next) => {
 };
 
 exports.postCart = (req, res, next) => {
-  Product.findById(req.body.productId, (product) => {
-    Cart.addProduct(product);
-  });
-  res.redirect('/cart');
+  let fetchedCart;
+  req.user
+    .getCart()
+    .then((cart) => {
+      fetchedCart = cart;
+      return cart.getProducts({ where: { id: req.body.productId } });
+    })
+    .then((products) => {
+      let product;
+      if (products.length > 0) {
+        product = products[0];
+      }
+      let quantity = 1;
+      if (product) {
+        // TODO Add the quantity
+      }
+      return Product.findByPk(req.body.productId)
+        .then((prod) => {
+          fetchedCart.addProduct(prod, { through: { quantity } });
+        })
+        .catch((err) => console.log(err));
+    })
+    .then(() => res.redirect('/cart'))
+    .catch((err) => console.log(err));
 };
 
 exports.postCartDeleteItem = (req, res, next) => {
