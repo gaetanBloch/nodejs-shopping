@@ -10,17 +10,17 @@ exports.getProducts = (req, res, next) => {
   fetchAllProducts('shop/product-list', 'All Products', '/products', req, res);
 };
 
-// exports.getProduct = (req, res, next) => {
-//   Product.findByPk(req.params.productId)
-//     .then((product) => {
-//       res.render('shop/product-detail', {
-//         title: product.title,
-//         path: '/products',
-//         product
-//       });
-//     })
-//     .catch((err) => console.log(err));
-// };
+exports.getProduct = (req, res, next) => {
+  Product.findById(req.params.productId)
+    .then((product) => {
+      res.render('shop/product-detail', {
+        title: product.title,
+        path: '/products',
+        product
+      });
+    })
+    .catch((err) => console.log(err));
+};
 
 // exports.getCart = (req, res, next) => {
 //   req.user
