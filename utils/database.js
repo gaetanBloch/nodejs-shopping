@@ -1,8 +1,18 @@
-const { Sequelize } = require('sequelize');
+const mongodb = require('mongodb');
+const MongoClient = new mongodb.MongoClient(
+  'mongodb+srv://gbloch:gaetan.bloch@cluster0-hcscb.mongodb.net/test?retryWrites=true&w=majority',
+  { useUnifiedTopology: true }
+);
 
-const sequelize = new Sequelize('nodejs-shopping', 'root', '', {
-  dialect: 'mysql',
-  host: 'localhost'
-});
+const mongoConnect = () => {
+  return new Promise((resolve, reject) => {
+    MongoClient.connect()
+      .then((result) => {
+        console.log('Connected to MongoDB!');
+        resolve(result);
+      })
+      .catch((err) => reject(err));
+  });
+};
 
-module.exports = sequelize;
+module.exports = mongoConnect;
