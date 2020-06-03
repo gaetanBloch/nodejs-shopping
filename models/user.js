@@ -18,25 +18,22 @@ class User {
   };
 
   addToCart = (product) => {
-    const updatedProducts = [];
+    const products = [];
     // const productIndex = this.cart.products.findIndex(
     //   (prod) => prod._id === product._id
     // );
     // if (productIndex === -1) {
-    updatedProducts.push({ ...product, quantity: 1 });
+    products.push({ productId: new ObjectId(product._id), quantity: 1 });
     // } else {
     //   products = this.cart.products.concat({
     //     ...product,
     //     quantity: this.cart.products[productIndex].quantity + 1
     //   });
     // }
-    const updatedCart = { products: updatedProducts };
+    const cart = { products };
     getDb()
       .collection('users')
-      .updateOne(
-        { _id: new ObjectId(this._id) },
-        { $set: { cart: updatedCart } }
-      );
+      .updateOne({ _id: new ObjectId(this._id) }, { $set: { cart } });
   };
 
   static findById = (id) => {
