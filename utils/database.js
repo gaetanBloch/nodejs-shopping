@@ -7,12 +7,14 @@ const MongoClient = new mongodb.MongoClient(
 let _db;
 
 const mongoConnect = () => {
-  MongoClient.connect()
-    .then((client) => {
-      _db = client.db();
-      resolve('Connected to MongoDB!');
-    })
-    .catch((err) => reject(err));
+  return new Promise((resolve, reject) => {
+    MongoClient.connect()
+      .then((client) => {
+        _db = client.db();
+        resolve('Connected to MongoDB!');
+      })
+      .catch((err) => reject(err));
+  });
 };
 
 const getDb = () => {

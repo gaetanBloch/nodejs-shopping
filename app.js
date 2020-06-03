@@ -30,8 +30,8 @@ app.use('/admin', adminRoutes);
 app.use(errorController.getNotFound);
 
 mongoConnect()
-  .then((results) => {
-    console.log(result);
+  .then((response) => {
+    console.log(response);
     app.listen(3000);
   })
   .catch((err) => console.log(err));
