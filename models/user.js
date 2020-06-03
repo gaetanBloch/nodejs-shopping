@@ -10,6 +10,13 @@ class User {
     this._id = id ? new ObjectId(id) : null;
   }
 
+  constructor(user) {
+    this.username = user.username;
+    this.email = user.email;
+    this.cart = user.cart;
+    this._id = user._id;
+  }
+
   save = () => {
     getDb().collection('users').insertOne(this);
   };
