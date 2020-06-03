@@ -100,8 +100,12 @@ exports.postOrder = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-  res.render('shop/orders', {
-    title: 'Your Orders',
-    path: '/orders'
-  });
+  req.user
+  .getOrders().then((orders) => {
+    res.render('shop/orders', {
+      title: 'Your Orders',
+      path: '/orders',
+      orders
+    });
+  }).catch((err) => console.log(err));;
 };
