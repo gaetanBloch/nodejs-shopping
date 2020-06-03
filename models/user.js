@@ -9,13 +9,13 @@ class User {
   }
 
   save() {
-    const db = getDb();
-    db.collection('users').insertOne(this);
+    getDb().collection('users').insertOne(this);
   }
 
   static findById = (id) => {
-    const db = getDb();
-    return db.collection('users').findOne({ _id: new ObjectId(id) });
+    return getDb()
+      .collection('users')
+      .findOne({ _id: new ObjectId(id) });
   };
 }
 
