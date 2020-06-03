@@ -12,13 +12,14 @@ exports.getAddProduct = (req, res, next) => {
 };
 
 exports.postAddProduct = (req, res, next) => {
-  req.user
-    .createProduct({
-      title: req.body.title,
-      price: +req.body.price,
-      imageUrl: req.body.imageUrl,
-      description: req.body.description
-    })
+  const product = new Product(
+    req.body.title,
+    +req.body.price,
+    req.body.imageUrl,
+    req.body.description
+  );
+  product
+    .save()
     .then(() => res.redirect('/products'))
     .catch((err) => console.log(err));
 };
