@@ -6,7 +6,7 @@ const adminRoutes = require('./routes/admin');
 // const shopRoutes = require('./routes/shop');
 
 const errorController = require('./controllers/error');
-const mongoConnect = require('./utils/database');
+const { mongoConnect } = require('./utils/database');
 
 const app = express();
 
@@ -30,7 +30,7 @@ app.use('/admin', adminRoutes);
 app.use(errorController.getNotFound);
 
 mongoConnect()
-  .then((result) => {
+  .then((results) => {
     console.log(result);
     app.listen(3000);
   })
