@@ -101,11 +101,13 @@ exports.postOrder = (req, res, next) => {
 
 exports.getOrders = (req, res, next) => {
   req.user
-  .getOrders().then((orders) => {
-    res.render('shop/orders', {
-      title: 'Your Orders',
-      path: '/orders',
-      orders
-    });
-  }).catch((err) => console.log(err));;
+    .getOrders({ include: ['products'] })
+    .then((orders) => {
+      res.render('shop/orders', {
+        title: 'Your Orders',
+        path: '/orders',
+        orders
+      });
+    })
+    .catch((err) => console.log(err));
 };
