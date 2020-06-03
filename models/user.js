@@ -33,6 +33,10 @@ class User {
       .updateOne({ _id: new ObjectId(this._id) }, { $set: { cart } });
   };
 
+  getCart = () => {
+    return this.cart;
+  }
+
   static findById = (id) => {
     return getDb()
       .collection('users')
