@@ -7,18 +7,15 @@ class User {
     this.username = username;
     this.email = email;
     this.cart = cart; // { products: []}
-    this._id = id ? new ObjectId(id) : null;
-  }
-
-  constructor(user) {
-    this.username = user.username;
-    this.email = user.email;
-    this.cart = user.cart;
-    this._id = user._id;
+    this._id = id;
   }
 
   save = () => {
     getDb().collection('users').insertOne(this);
+  };
+
+  static build = (user) => {
+    return new User(user.username, user.email, user.cart, user._id);
   };
 
   addToCart = (product) => {
@@ -38,7 +35,7 @@ class User {
 
     getDb()
       .collection('users')
-      .updateOne({ _id: this._id }, { $set: { cart } });
+      .updateOne({ _id: new ObjectId(this._id) }, { $set: { cart } });
   };
 
   static findById = (id) => {
