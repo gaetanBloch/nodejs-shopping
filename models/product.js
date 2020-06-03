@@ -1,4 +1,4 @@
-const mongodb = require('mongodb');
+const ObjectId = require('mongodb').ObjectId;
 const { getDb } = require('../utils/database');
 
 class Product {
@@ -7,64 +7,37 @@ class Product {
     this.price = price;
     this.imageUrl = imageUrl;
     this.description = description;
-    this._id = id ? new mongodb.ObjectID(id) : null;
+    this._id = id ? new ObjectId(id) : null;
   }
 
   save() {
     const db = getDb();
-    let dbOperation;
     if (this._id) {
       // Save existing product
-      dbOperation = db
+      return db
         .collection('products')
         .updateOne({ _id: this._id }, { $set: this });
     } else {
       // Create new product
-      dbOperation = db.collection('products').insertOne(this);
+      return db.collection('products').insertOne(this);
     }
-
-    return dbOperation
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
   }
 
   static fetchAll = () => {
-    const db = getDb();
-    return db
-      .collection('products')
-      .find()
-      .toArray()
-      .then((products) => {
-        console.log(products);
-        return products;
-      })
-      .catch((err) => console.log(err));
+    getDb().collection('products').find().toArray();
   };
 
   static findById = (id) => {
-    const db = getDb();
-    return db
+    getDb()
       .collection('products')
-      .find({ _id: new mongodb.ObjectID(id) })
-      .next()
-      .then((product) => {
-        console.log(product);
-        return product;
-      })
-      .catch((err) => console.log(err));
+      .findOne({ _id: new ObjectId(id) });
   };
 
   static deleteById = (id) => {
-    const db = getDb();
-    return db
+    return getDb()
       .collection('products')
-      .deleteOne({ _id: new mongodb.ObjectID(id) })
-      .then((result) => {
-        console.log('Product deleted, for id = ' + id);
-        return result;
-      })
-      .catch((err) => console.log(err));
-  }
+      .deleteOne({ _id: new ObjectId(id) });
+  };
 }
 
 module.exports = Product;
