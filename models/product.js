@@ -24,11 +24,11 @@ class Product {
   }
 
   static fetchAll = () => {
-    getDb().collection('products').find().toArray();
+    return getDb().collection('products').find().toArray();
   };
 
   static findById = (id) => {
-    getDb()
+    return getDb()
       .collection('products')
       .findOne({ _id: new ObjectId(id) });
   };
