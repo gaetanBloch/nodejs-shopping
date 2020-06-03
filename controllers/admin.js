@@ -16,7 +16,9 @@ exports.postAddProduct = (req, res, next) => {
     req.body.title,
     +req.body.price,
     req.body.imageUrl,
-    req.body.description
+    req.body.description,
+    null,
+    req.user._id
   );
   product
     .save()
@@ -61,7 +63,8 @@ exports.postEditProduct = (req, res, next) => {
     +req.body.price,
     req.body.imageUrl,
     req.body.description,
-    req.body.id
+    req.body.id,
+    req.user._id
   );
   product
     .save()
