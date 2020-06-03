@@ -18,18 +18,15 @@ class User {
   };
 
   addToCart = (product) => {
-    const products = [];
-    // const productIndex = this.cart.products.findIndex(
-    //   (prod) => prod._id === product._id
-    // );
-    // if (productIndex === -1) {
-    products.push({ productId: new ObjectId(product._id), quantity: 1 });
-    // } else {
-    //   products = this.cart.products.concat({
-    //     ...product,
-    //     quantity: this.cart.products[productIndex].quantity + 1
-    //   });
-    // }
+    const products = [...this.cart.products];
+    const productIndex = products.findIndex(
+      (prod) => prod.productId.toString() === product._id.toString()
+    );
+    if (productIndex <= -1) {
+      products.push({ productId: new ObjectId(product._id), quantity: 1 });
+    } else {
+      products[productIndex].quantity = products[productIndex].quantity + 1;
+    }
     const cart = { products };
     getDb()
       .collection('users')
