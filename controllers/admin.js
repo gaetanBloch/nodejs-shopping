@@ -1,4 +1,3 @@
-const mongodb = require('mongodb');
 const Product = require('../models/product');
 
 const { fetchAllProducts } = require('./utils');
@@ -62,7 +61,7 @@ exports.postEditProduct = (req, res, next) => {
     +req.body.price,
     req.body.imageUrl,
     req.body.description,
-    new mongodb.ObjectID(req.body.id)
+    req.body.id
   );
   product
     .save()
