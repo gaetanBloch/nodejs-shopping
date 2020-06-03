@@ -29,6 +29,7 @@ class Product {
   };
 
   static findById = (id) => {
+    console.log(id);
     return getDb()
       .collection('products')
       .findOne({ _id: new ObjectId(id) });

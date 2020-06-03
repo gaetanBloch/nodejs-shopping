@@ -36,29 +36,32 @@ exports.getProduct = (req, res, next) => {
 //     .catch((err) => console.log(err));
 // };
 
-// exports.postCart = (req, res, next) => {
-//   let fetchedCart;
-//   let quantity = 1;
-//   req.user
-//     .getCart()
-//     .then((cart) => {
-//       fetchedCart = cart;
-//       return cart.getProducts({ where: { id: req.body.productId } });
-//     })
-//     .then((products) => {
-//       if (products.length > 0) {
-//         // If the product is already in the cart
-//         quantity += products[0].cartItem.quantity;
-//         return products[0];
-//       }
-//       return Product.findByPk(req.body.productId);
-//     })
-//     .then((product) => {
-//       return fetchedCart.addProduct(product, { through: { quantity } });
-//     })
-//     .then(() => res.redirect('/cart'))
-//     .catch((err) => console.log(err));
-// };
+exports.postCart = (req, res, next) => {
+  Product.findById(req.body.productId)
+    .then((product) => req.user.addToCart(product))
+    .catch((err) => console.log(err));
+  // let fetchedCart;
+  // let quantity = 1;
+  // req.user
+  //   .getCart()
+  //   .then((cart) => {
+  //     fetchedCart = cart;
+  //     return cart.getProducts({ where: { id: req.body.productId } });
+  //   })
+  //   .then((products) => {
+  //     if (products.length > 0) {
+  //       // If the product is already in the cart
+  //       quantity += products[0].cartItem.quantity;
+  //       return products[0];
+  //     }
+  //     return Product.findByPk(req.body.productId);
+  //   })
+  //   .then((product) => {
+  //     return fetchedCart.addProduct(product, { through: { quantity } });
+  //   })
+  //   .then(() => res.redirect('/cart'))
+  //   .catch((err) => console.log(err));
+};
 
 // exports.postCartDeleteItem = (req, res, next) => {
 //   req.user

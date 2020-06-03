@@ -1,5 +1,4 @@
 const ObjectId = require('mongodb').ObjectId;
-
 const { getDb } = require('../utils/database');
 
 class User {
@@ -19,23 +18,25 @@ class User {
   };
 
   addToCart = (product) => {
-    products = [];
-    quantity = 1;
-    const productIndex = this.cart.products.findIndex(
-      (prod) => prod._id === product._id
-    );
-    if (productIndex === -1) {
-      products.push(...product);
-      quantity++;
-    } else {
-      products = this.cart.products.concat(...product);
-      quantity = this.cart.products[productIndex].quantity + 1;
-    }
-    const cart = { products, quantity };
-
+    const updatedProducts = [];
+    // const productIndex = this.cart.products.findIndex(
+    //   (prod) => prod._id === product._id
+    // );
+    // if (productIndex === -1) {
+    updatedProducts.push({ ...product, quantity: 1 });
+    // } else {
+    //   products = this.cart.products.concat({
+    //     ...product,
+    //     quantity: this.cart.products[productIndex].quantity + 1
+    //   });
+    // }
+    const updatedCart = { products: updatedProducts };
     getDb()
       .collection('users')
-      .updateOne({ _id: new ObjectId(this._id) }, { $set: { cart } });
+      .updateOne(
+        { _id: new ObjectId(this._id) },
+        { $set: { cart: updatedCart } }
+      );
   };
 
   static findById = (id) => {
