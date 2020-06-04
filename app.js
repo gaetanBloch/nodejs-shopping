@@ -7,7 +7,7 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
 const errorController = require('./controllers/error');
-// const User = require('./models/user');
+const User = require('./models/user');
 
 const app = express();
 
@@ -35,8 +35,16 @@ mongoose
     'mongodb+srv://gbloch:gaetan.bloch@cluster0-hcscb.mongodb.net/shop?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
-  .then((response) => {
+  .then(() => {
     console.log('Successfully connected to MongoDb!');
+    const user = new User({
+      username: 'gbloch',
+      email: 'gaetan.bloch@gmai.com',
+      cart: {
+        products: []
+      }
+    });
+    user.save();
     app.listen(3000);
   })
   .catch((err) => console.log(err));
