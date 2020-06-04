@@ -4,7 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 
 const adminRoutes = require('./routes/admin');
-// const shopRoutes = require('./routes/shop');
+const shopRoutes = require('./routes/shop');
 
 const errorController = require('./controllers/error');
 // const User = require('./models/user');
@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // });
 
 app.use('/admin', adminRoutes);
-// app.use(shopRoutes);
+app.use(shopRoutes);
 app.use(errorController.getNotFound);
 
 mongoose

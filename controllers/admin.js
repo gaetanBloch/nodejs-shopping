@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 
-// const { fetchAllProducts } = require('./utils');
+const { fetchAllProducts } = require('./utils');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -24,15 +24,15 @@ exports.postAddProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-// exports.getProducts = (req, res, next) => {
-//   fetchAllProducts(
-//     'admin/products',
-//     'Admin Products',
-//     '/admin/products',
-//     req,
-//     res
-//   );
-// };
+exports.getProducts = (req, res, next) => {
+  fetchAllProducts(
+    'admin/products',
+    'Admin Products',
+    '/admin/products',
+    req,
+    res
+  );
+};
 
 // exports.getEditProduct = (req, res, next) => {
 //   const editMode = req.query.edit;

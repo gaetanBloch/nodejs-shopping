@@ -1,14 +1,14 @@
 const Product = require('../models/product');
 
-// const { fetchAllProducts } = require('./utils');
+const { fetchAllProducts } = require('./utils');
 
-// exports.getIndex = (req, res, next) => {
-//   fetchAllProducts('shop/index', 'Shop', '/', req, res);
-// };
+exports.getIndex = (req, res, next) => {
+  fetchAllProducts('shop/index', 'Shop', '/', req, res);
+};
 
-// exports.getProducts = (req, res, next) => {
-//   fetchAllProducts('shop/product-list', 'All Products', '/products', req, res);
-// };
+exports.getProducts = (req, res, next) => {
+  fetchAllProducts('shop/product-list', 'All Products', '/products', req, res);
+};
 
 // exports.getProduct = (req, res, next) => {
 //   Product.findById(req.params.productId)
