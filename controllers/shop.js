@@ -38,6 +38,7 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
   Product.findById(req.body.productId)
     .then((product) => req.user.addToCart(product))
+    .then(() => res.redirect('/cart'))
     .catch((err) => console.log(err));
 };
 
