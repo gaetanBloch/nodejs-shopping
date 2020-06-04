@@ -39,16 +39,14 @@ class User {
       .collection('products')
       .find({ _id: { $in: productIds } })
       .toArray()
-      .then((products) => {
-        return products.map((product) => {
-          return {
-            ...product,
-            quantity: this.cart.products.find((prod) => {
-              return prod.productIdb === product._id;
-            }).quantity
-          };
-        });
-      });
+      .then((products) =>
+        products.map((product) => ({
+          ...product,
+          quantity: this.cart.products.find(
+            (prod) => prod.productId.toString() === product._id.toString()
+          ).quantity
+        }))
+      );
   };
 
   static findById = (id) => {
