@@ -38,7 +38,6 @@ mongoose
   .then(() => {
     console.log('Successfully connected to MongoDb!');
     User.findOne().then((user) => {
-      console.log(user);
       if (!user) {
         new User({
           username: 'gbloch',
