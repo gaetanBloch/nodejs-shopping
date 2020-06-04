@@ -55,20 +55,18 @@ exports.getEditProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-// exports.postEditProduct = (req, res, next) => {
-//   const product = new Product(
-//     req.body.title,
-//     +req.body.price,
-//     req.body.imageUrl,
-//     req.body.description,
-//     req.body.id,
-//     req.user._id
-//   );
-//   product
-//     .save()
-//     .then(() => res.redirect('/admin/products'))
-//     .catch((err) => console.log(err));
-// };
+exports.postEditProduct = (req, res, next) => {
+  Product.findById(req.body.id)
+    .then((product) => {
+      product.title = req.body.title;
+      product.price = +req.body.price;
+      product.imageUrl = req.body.imageUrl;
+      product.description = req.body.description;
+      return product.save();
+    })
+    .then(() => res.redirect('/admin/products'))
+    .catch((err) => console.log(err));
+};
 
 // exports.postDeleteProduct = (req, res, next) => {
 //   Product.deleteById(req.body.id)
