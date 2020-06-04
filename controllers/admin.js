@@ -68,8 +68,8 @@ exports.postEditProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-// exports.postDeleteProduct = (req, res, next) => {
-//   Product.deleteById(req.body.id)
-//     .then(() => res.redirect('/admin/products'))
-//     .catch((err) => console.log(err));
-// };
+exports.postDeleteProduct = (req, res, next) => {
+  Product.findByIdAndRemove(req.body.id, { useFindAndModify: false })
+    .then(() => res.redirect('/admin/products'))
+    .catch((err) => console.log(err));
+};
