@@ -37,7 +37,8 @@ mongoose
   )
   .then(() => {
     console.log('Successfully connected to MongoDb!');
-    User.findOne((user) => {
+    User.findOne().then((user) => {
+      console.log(user);
       if (!user) {
         new User({
           username: 'gbloch',
@@ -50,7 +51,6 @@ mongoose
           .catch((err) => console.log(err));
       }
     });
-
     app.listen(3000);
   })
   .catch((err) => console.log(err));
