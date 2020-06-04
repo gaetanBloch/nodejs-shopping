@@ -35,12 +35,12 @@ exports.getProduct = (req, res, next) => {
 //     .catch((err) => console.log(err));
 // };
 
-// exports.postCart = (req, res, next) => {
-//   Product.findById(req.body.productId)
-//     .then((product) => req.user.addToCart(product))
-//     .then(() => res.redirect('/cart'))
-//     .catch((err) => console.log(err));
-// };
+exports.postCart = (req, res, next) => {
+  Product.findById(req.body.productId)
+    .then((product) => req.user.addToCart(product))
+    .then(() => res.redirect('/cart'))
+    .catch((err) => console.log(err));
+};
 
 // exports.postCartDeleteProduct = (req, res, next) => {
 //   req.user
