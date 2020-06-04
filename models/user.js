@@ -62,6 +62,22 @@ class User {
       );
   };
 
+  addOrder = () => {
+    return getDb()
+      .collection('orders')
+      .insertOne(this.cart)
+      .then(() => {
+        // Empty the cart in memory and in the DB
+        this.cart.products = [];
+        return getDb()
+          .collection('users')
+          .update(
+            { _id: new ObjectId(this._id) },
+            { $set: { cart: { products: [] } } }
+          );
+      });
+  };
+
   static findById = (id) => {
     return getDb()
       .collection('users')
