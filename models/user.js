@@ -9,12 +9,12 @@ class User {
     this._id = id;
   }
 
-  save = () => {
-    getDb().collection('users').insertOne(this);
-  };
-
   static build = (user) => {
     return new User(user.username, user.email, user.cart, user._id);
+  };
+
+  save = () => {
+    getDb().collection('users').insertOne(this);
   };
 
   addToCart = (product) => {
@@ -46,6 +46,19 @@ class User {
             (prod) => prod.productId.toString() === product._id.toString()
           ).quantity
         }))
+      );
+  };
+
+  deleteProductFromCart = (id) => {
+    const updatedProducts = this.cart.products.filter(
+      (prod) => prod.productId.toString() !== id.toString()
+    );
+
+    return getDb()
+      .collection('users')
+      .update(
+        { _id: new ObjectId(this._id) },
+        { $set: { cart: { products: updatedProducts } } }
       );
   };
 
