@@ -63,9 +63,17 @@ class User {
   };
 
   addOrder = () => {
-    return getDb()
-      .collection('orders')
-      .insertOne(this.cart)
+    return this.getCart()
+      .then((products) => {
+        const order = {
+          products,
+          user: {
+            _id: new ObjectId(this._id),
+            username: this.username
+          }
+        };
+        return getDb().collection('orders').insertOne(order);
+      })
       .then(() => {
         // Empty the cart in memory and in the DB
         this.cart.products = [];
