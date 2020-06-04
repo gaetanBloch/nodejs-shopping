@@ -86,6 +86,13 @@ class User {
       });
   };
 
+  getOrders = () => {
+    return getDb()
+      .collection('orders')
+      .find({ 'user._id': new ObjectId(this._id) })
+      .toArray();
+  };
+
   static findById = (id) => {
     return getDb()
       .collection('users')
