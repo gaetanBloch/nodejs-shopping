@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
 
 // Use the function keyword so that the "this" keyword refers to the context by
 // which is it executed. No arrow function!
+
 userSchema.methods.addToCart = function (product) {
   const products = [...this.cart.products];
   const productIndex = products.findIndex(
@@ -39,6 +40,14 @@ userSchema.methods.addToCart = function (product) {
     products[productIndex].quantity = products[productIndex].quantity + 1;
   }
   this.cart = { products };
+  return this.save();
+};
+
+userSchema.methods.deleteProductFromCart = function (id) {
+  const updatedProducts = this.cart.products.filter(
+    (prod) => prod.productId.toString() !== id.toString()
+  );
+  this.cart.products = updatedProducts;
   return this.save();
 };
 
