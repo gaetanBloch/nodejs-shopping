@@ -17,14 +17,14 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use((req, res, next) => {
-//   User.findById('5ed8149d3a49894858d52afc')
-//     .then((user) => {
-//       req.user = User.build(user);
-//       next();
-//     })
-//     .catch((err) => console.log(err));
-// });
+app.use((req, res, next) => {
+  User.findById('5ed90d546133cc53208b2586')
+    .then((user) => {
+      req.user = user;
+      next();
+    })
+    .catch((err) => console.log(err));
+});
 
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
@@ -37,14 +37,20 @@ mongoose
   )
   .then(() => {
     console.log('Successfully connected to MongoDb!');
-    const user = new User({
-      username: 'gbloch',
-      email: 'gaetan.bloch@gmai.com',
-      cart: {
-        products: []
+    User.findOne((user) => {
+      if (!user) {
+        new User({
+          username: 'gbloch',
+          email: 'gaetan.bloch@gmai.com',
+          cart: {
+            products: []
+          }
+        })
+          .save()
+          .catch((err) => console.log(err));
       }
     });
-    user.save();
+
     app.listen(3000);
   })
   .catch((err) => console.log(err));
