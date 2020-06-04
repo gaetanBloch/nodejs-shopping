@@ -44,12 +44,12 @@ exports.postCart = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-// exports.postCartDeleteProduct = (req, res, next) => {
-//   req.user
-//     .deleteProductFromCart(req.body.productId)
-//     .then(() => res.redirect('/cart'))
-//     .catch((err) => console.log(err));
-// };
+exports.postCartDeleteProduct = (req, res, next) => {
+  req.user
+    .deleteProductFromCart(req.body.productId)
+    .then(() => res.redirect('/cart'))
+    .catch((err) => console.log(err));
+};
 
 // exports.postOrder = (req, res, next) => {
 //   req.user
