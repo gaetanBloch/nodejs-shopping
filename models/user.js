@@ -43,3 +43,63 @@ userSchema.methods.addToCart = function (product) {
 };
 
 module.exports = mongoose.model('User', userSchema);
+
+// getCart = () => {
+//   const productIds = this.cart.products.map((product) => product.productId);
+//   return getDb()
+//     .collection('products')
+//     .find({ _id: { $in: productIds } })
+//     .toArray()
+//     .then((products) =>
+//       products.map((product) => ({
+//         ...product,
+//         quantity: this.cart.products.find(
+//           (prod) => prod.productId.toString() === product._id.toString()
+//         ).quantity
+//       }))
+//     );
+// };
+
+// deleteProductFromCart = (id) => {
+//   const updatedProducts = this.cart.products.filter(
+//     (prod) => prod.productId.toString() !== id.toString()
+//   );
+
+//   return getDb()
+//     .collection('users')
+//     .updateOne(
+//       { _id: new ObjectId(this._id) },
+//       { $set: { cart: { products: updatedProducts } } }
+//     );
+// };
+
+// addOrder = () => {
+//   return this.getCart()
+//     .then((products) => {
+//       const order = {
+//         products,
+//         user: {
+//           _id: new ObjectId(this._id),
+//           username: this.username
+//         }
+//       };
+//       return getDb().collection('orders').insertOne(order);
+//     })
+//     .then(() => {
+//       // Empty the cart in memory and in the DB
+//       this.cart.products = [];
+//       return getDb()
+//         .collection('users')
+//         .updateOne(
+//           { _id: new ObjectId(this._id) },
+//           { $set: { cart: { products: [] } } }
+//         );
+//     });
+// };
+
+// getOrders = () => {
+//   return getDb()
+//     .collection('orders')
+//     .find({ 'user._id': new ObjectId(this._id) })
+//     .toArray();
+// };

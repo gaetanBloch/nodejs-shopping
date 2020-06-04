@@ -22,18 +22,20 @@ exports.getProduct = (req, res, next) => {
     .catch((err) => console.log(err));
 };
 
-// exports.getCart = (req, res, next) => {
-//   req.user
-//     .getCart()
-//     .then((products) => {
-//       res.render('shop/cart', {
-//         title: 'Your Cart',
-//         path: '/cart',
-//         products
-//       });
-//     })
-//     .catch((err) => console.log(err));
-// };
+exports.getCart = (req, res, next) => {
+  req.user
+    .populate('cart.products.productId')
+    .execPopulate()
+    .then((user) => {
+      const products = user.cart.products;
+      res.render('shop/cart', {
+        title: 'Your Cart',
+        path: '/cart',
+        products
+      });
+    })
+    .catch((err) => console.log(err));
+};
 
 exports.postCart = (req, res, next) => {
   Product.findById(req.body.productId)
