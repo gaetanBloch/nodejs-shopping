@@ -56,7 +56,7 @@ class User {
 
     return getDb()
       .collection('users')
-      .update(
+      .updateOne(
         { _id: new ObjectId(this._id) },
         { $set: { cart: { products: updatedProducts } } }
       );
@@ -71,7 +71,7 @@ class User {
         this.cart.products = [];
         return getDb()
           .collection('users')
-          .update(
+          .updateOne(
             { _id: new ObjectId(this._id) },
             { $set: { cart: { products: [] } } }
           );
