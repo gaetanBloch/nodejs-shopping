@@ -44,43 +44,13 @@ userSchema.methods.addToCart = function (product) {
 };
 
 userSchema.methods.deleteProductFromCart = function (id) {
-  const updatedProducts = this.cart.products.filter(
+  this.cart.products = this.cart.products.filter(
     (prod) => prod.productId.toString() !== id.toString()
   );
-  this.cart.products = updatedProducts;
   return this.save();
 };
 
 module.exports = mongoose.model('User', userSchema);
-
-// getCart = () => {
-//   const productIds = this.cart.products.map((product) => product.productId);
-//   return getDb()
-//     .collection('products')
-//     .find({ _id: { $in: productIds } })
-//     .toArray()
-//     .then((products) =>
-//       products.map((product) => ({
-//         ...product,
-//         quantity: this.cart.products.find(
-//           (prod) => prod.productId.toString() === product._id.toString()
-//         ).quantity
-//       }))
-//     );
-// };
-
-// deleteProductFromCart = (id) => {
-//   const updatedProducts = this.cart.products.filter(
-//     (prod) => prod.productId.toString() !== id.toString()
-//   );
-
-//   return getDb()
-//     .collection('users')
-//     .updateOne(
-//       { _id: new ObjectId(this._id) },
-//       { $set: { cart: { products: updatedProducts } } }
-//     );
-// };
 
 // addOrder = () => {
 //   return this.getCart()
