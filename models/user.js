@@ -50,31 +50,12 @@ userSchema.methods.deleteProductFromCart = function (id) {
   return this.save();
 };
 
-module.exports = mongoose.model('User', userSchema);
+userSchema.methods.clearCart = function () {
+  this.cart = { products: [] };
+  return this.save();
+};
 
-// addOrder = () => {
-//   return this.getCart()
-//     .then((products) => {
-//       const order = {
-//         products,
-//         user: {
-//           _id: new ObjectId(this._id),
-//           username: this.username
-//         }
-//       };
-//       return getDb().collection('orders').insertOne(order);
-//     })
-//     .then(() => {
-//       // Empty the cart in memory and in the DB
-//       this.cart.products = [];
-//       return getDb()
-//         .collection('users')
-//         .updateOne(
-//           { _id: new ObjectId(this._id) },
-//           { $set: { cart: { products: [] } } }
-//         );
-//     });
-// };
+module.exports = mongoose.model('User', userSchema);
 
 // getOrders = () => {
 //   return getDb()
