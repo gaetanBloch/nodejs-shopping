@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const mongoose = require('mongoose');
 
-// const adminRoutes = require('./routes/admin');
+const adminRoutes = require('./routes/admin');
 // const shopRoutes = require('./routes/shop');
 
 const errorController = require('./controllers/error');
@@ -17,16 +17,16 @@ app.set('views', 'views');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use((req, res, next) => {
-  // User.findById('5ed8149d3a49894858d52afc')
-  //   .then((user) => {
-  //     req.user = User.build(user);
-  //     next();
-  //   })
-  //   .catch((err) => console.log(err));
-});
+// app.use((req, res, next) => {
+//   User.findById('5ed8149d3a49894858d52afc')
+//     .then((user) => {
+//       req.user = User.build(user);
+//       next();
+//     })
+//     .catch((err) => console.log(err));
+// });
 
-// app.use('/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 // app.use(shopRoutes);
 app.use(errorController.getNotFound);
 

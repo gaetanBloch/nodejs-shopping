@@ -1,6 +1,6 @@
-const Schema = require('mongoose').Schema;
+const mongoose = require('mongoose');
 
-const productSchema = new Schema({
+const productSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -18,6 +18,8 @@ const productSchema = new Schema({
     required: true
   }
 });
+
+module.exports = mongoose.model('Product', productSchema);
 
 // const ObjectId = require('mongodb').ObjectId;
 // const { getDb } = require('../utils/database');

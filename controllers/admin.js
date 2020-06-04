@@ -2,29 +2,27 @@ const Product = require('../models/product');
 
 // const { fetchAllProducts } = require('./utils');
 
-// exports.getAddProduct = (req, res, next) => {
-//   res.render('admin/edit-product', {
-//     title: 'Add Product',
-//     path: '/admin/add-product',
-//     editing: false,
-//     product: {}
-//   });
-// };
+exports.getAddProduct = (req, res, next) => {
+  res.render('admin/edit-product', {
+    title: 'Add Product',
+    path: '/admin/add-product',
+    editing: false,
+    product: {}
+  });
+};
 
-// exports.postAddProduct = (req, res, next) => {
-//   const product = new Product(
-//     req.body.title,
-//     +req.body.price,
-//     req.body.imageUrl,
-//     req.body.description,
-//     null,
-//     req.user._id
-//   );
-//   product
-//     .save()
-//     .then(() => res.redirect('/products'))
-//     .catch((err) => console.log(err));
-// };
+exports.postAddProduct = (req, res, next) => {
+  const product = new Product({
+    title: req.body.title,
+    price: +req.body.price,
+    imageUrl: req.body.imageUrl,
+    description: req.body.description
+  });
+  product
+    .save()
+    .then(() => res.redirect('/products'))
+    .catch((err) => console.log(err));
+};
 
 // exports.getProducts = (req, res, next) => {
 //   fetchAllProducts(
