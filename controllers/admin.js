@@ -34,26 +34,26 @@ exports.getProducts = (req, res, next) => {
   );
 };
 
-// exports.getEditProduct = (req, res, next) => {
-//   const editMode = req.query.edit;
-//   if (!editMode) {
-//     return res.redirect('/admin/products');
-//   }
-//   Product.findById(req.params.productId)
-//     .then((product) => {
-//       if (!product) {
-//         return res.redirect('/admin/products');
-//       }
+exports.getEditProduct = (req, res, next) => {
+  const editMode = req.query.edit;
+  if (!editMode) {
+    return res.redirect('/admin/products');
+  }
+  Product.findById(req.params.productId)
+    .then((product) => {
+      if (!product) {
+        return res.redirect('/admin/products');
+      }
 
-//       res.render('admin/edit-product', {
-//         title: 'Edit Product',
-//         path: '/admin/edit-product',
-//         editing: editMode,
-//         product
-//       });
-//     })
-//     .catch((err) => console.log(err));
-// };
+      res.render('admin/edit-product', {
+        title: 'Edit Product',
+        path: '/admin/edit-product',
+        editing: editMode,
+        product
+      });
+    })
+    .catch((err) => console.log(err));
+};
 
 // exports.postEditProduct = (req, res, next) => {
 //   const product = new Product(
