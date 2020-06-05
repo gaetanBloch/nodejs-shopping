@@ -4,7 +4,12 @@ const fetchAllProducts = (file, title, path, req, res) => {
   Product.find()
     // .select('title price -_id')
     // .populate('userId', 'name')
-    .then((products) => res.render(file, { products, title, path }))
+    .then((products) => res.render(file, {
+      products,
+      title,
+      path,
+      isAuthenticated: req.isLoggedIn
+    }))
     .catch((err) => console.log(err));
 };
 
