@@ -68,6 +68,7 @@ form {
   text-decoration: none;
   color: white;
   cursor: pointer;
+  padding: 0;
 }
 
 .main-header__item a:hover,
@@ -76,6 +77,7 @@ form {
 .main-header__item button:hover,
 .main-header__item button:active {
   color: #ffeb3b;
+  outline: none;
 }
 
 .mobile-nav {
