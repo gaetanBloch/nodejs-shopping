@@ -35,7 +35,8 @@ app.use(errorController.getNotFound);
 
 mongoose
   .connect(
-    'mongodb+srv://gbloch:gaetan.bloch@cluster0-hcscb.mongodb.net/shop?retryWrites=true&w=majority',
+    'mongodb+srv://gbloch:gaetan.bloch@cluster0-hcscb.mongodb.net' +
+    '/shop?retryWrites=true&w=majority',
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
