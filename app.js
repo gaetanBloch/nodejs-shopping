@@ -18,7 +18,7 @@ app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.user(session({
+app.use(session({
   secret: 'my secret',
   resave: false,
   saveUninitialized: false
