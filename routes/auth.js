@@ -6,4 +6,4 @@ router.get('/login', (req, res, next) => {
 
 });
 
-module.expors = router;
+module.exports = router;
