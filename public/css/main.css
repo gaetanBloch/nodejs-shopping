@@ -118,12 +118,27 @@ form {
   padding: 0.5rem 2rem;
 }
 
+.mobile-nav__item a ,
+.mobile-nav__item button {
+  font: inherit;
+  background: transparent;
+  font-size: 1.5rem;
+  padding: 0.5rem 2rem;
+  color: black;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
 .mobile-nav__item a:active,
 .mobile-nav__item a:hover,
-.mobile-nav__item a.active {
+.mobile-nav__item a.active ,
+.mobile-nav__item button:active,
+.mobile-nav__item button:hover{
   background: #00695c;
   color: white;
   border-radius: 3px;
+  outline: none;
 }
 
 #side-menu-toggle {
