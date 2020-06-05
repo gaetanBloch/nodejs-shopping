@@ -31,14 +31,17 @@
       <% } %>
     </ul>
     <ul class="main-header__item-list">
-      <li class="main-header__item">
-        <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
-      </li>
-      <li class="main-header__item">
-        <form action="/logout" method="POST">
-          <button type="submit">Logout</button>
-        </form>
-      </li>
+      <% if(!isAuthenticated) { %>
+        <li class="main-header__item">
+          <a class="<%= path === '/login' ? 'active' : '' %>" href="/login">Login</a>
+        </li>
+      <% } else { %>
+        <li class="main-header__item">
+          <form action="/logout" method="POST">
+            <button type="submit">Logout</button>
+          </form>
+        </li>
+      <% } %>
     </ul>
   </nav>
 </header>
