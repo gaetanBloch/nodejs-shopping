@@ -8,7 +8,7 @@ const fetchAllProducts = (file, title, path, req, res) => {
       products,
       title,
       path,
-      isAuthenticated: req.isLoggedIn
+      isAuthenticated: req.session.isLoggedIn
     }))
     .catch((err) => console.log(err));
 };
