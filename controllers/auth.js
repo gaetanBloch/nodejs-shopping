@@ -4,3 +4,7 @@ exports.getLogin = (req, res, next) => {
     path: '/login'
   });
 };
+
+exports.postLogin = (req, res, next) => {
+  res.redirect('/');
+};
