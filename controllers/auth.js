@@ -5,7 +5,8 @@ const User = require('../models/user');
 exports.getLogin = (req, res, next) => {
   res.render('auth/login', {
     title: 'Login',
-    path: '/login'
+    path: '/login',
+    errorMessage: req.flash('error')
   });
 };
 
@@ -13,6 +14,7 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
+        req.flash('error', 'Invalid email or password.');
         return res.redirect('/login');
       }
       // Checking if the password match
