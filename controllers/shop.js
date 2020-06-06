@@ -67,7 +67,7 @@ exports.postOrder = (req, res, next) => {
       );
       return new Order({
         user: {
-          username: req.user.username,
+          email: req.user.email,
           userId: req.user
         },
         products
