@@ -30,6 +30,20 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
+  User.findOne({ email: req.body.email })
+    .then(userDoc => {
+    if (userDoc) {
+      // The user already exists!
+      return res.redirect('/signup');
+    }
+    const user = new User({
+      email: req.body.email,
+      password: req.body.password,
+      cart: { items: [] }
+    });
+    return user.save();
+  }).then(() => res.redirect('/login'))
+    .catch((err) => console.log(err));
 };
 
 exports.postLogout = (req, res, next) => {
