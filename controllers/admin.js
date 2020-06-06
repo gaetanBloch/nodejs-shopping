@@ -3,6 +3,9 @@ const Product = require('../models/product');
 const { fetchAllProducts } = require('./utils');
 
 exports.getAddProduct = (req, res, next) => {
+  if (!req.session.isLoggedIn) {
+    res.redirect('/login');
+  }
   res.render('admin/edit-product', {
     title: 'Add Product',
     path: '/admin/add-product',
