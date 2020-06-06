@@ -39,7 +39,7 @@ exports.postSignup = (req, res, next) => {
     const user = new User({
       email: req.body.email,
       password: req.body.password,
-      cart: { items: [] }
+      cart: { products: [] }
     });
     return user.save();
   }).then(() => res.redirect('/login'))
