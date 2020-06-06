@@ -11,8 +11,11 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-  User.findById('5ed90d546133cc53208b2586')
+  User.findOne({email: req.body.email})
     .then((user) => {
+      if (!user) {
+        return res.redirect('/login');
+      }
       req.session.user = user;
       req.session.isLoggedIn = true;
       req.session.save(err => {
