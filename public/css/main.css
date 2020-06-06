@@ -246,9 +246,15 @@ form {
   margin: auto;
   width: 90%;
   border: 1px solid #4771FA;
-  padding: 1rem;
+  padding: 0.75rem;
   background-color: #B9C9FF;
   border-radius: 3px;
+  text-align: center;
+}
+
+.user-message__error {
+  border-color: red;
+  background-color: rgb(255, 176, 176);
 }
 
 @media (min-width: 768px) {
