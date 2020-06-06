@@ -8,7 +8,8 @@ const fetchAllProducts = (file, title, path, req, res) => {
       products,
       title,
       path,
-      isAuthenticated: req.session.isLoggedIn
+      isAuthenticated: req.session.isLoggedIn,
+      csrfToken: req.csrfToken()
     }))
     .catch((err) => console.log(err));
 };
