@@ -7,6 +7,9 @@
 <%- include('../includes/navigation.ejs') %>
 
 <main>
+  <% if (errorMessage) { %>
+    <div><%= errorMessage %></div>
+  <% } %>
   <div class="centered">
     <h1>Login</h1>
   </div>
