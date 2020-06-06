@@ -54,20 +54,8 @@ app.use(errorController.getNotFound);
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    console.log('Successfully connected to MongoDb!');
-    User.findOne().then((user) => {
-      if (!user) {
-        new User({
-          username: 'gbloch',
-          email: 'gaetan.bloch@gmai.com',
-          cart: {
-            products: []
-          }
-        })
-          .save()
-          .catch((err) => console.log(err));
-      }
-    });
+    console.log('Successfully connected to MongoDb...');
     app.listen(3000);
+    console.log('Listening to port 3000...');
   })
   .catch((err) => console.log(err));
