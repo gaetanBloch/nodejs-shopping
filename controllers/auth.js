@@ -1,4 +1,4 @@
-const { bcrypt } = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 const User = require('../models/user');
 
@@ -11,19 +11,30 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-  User.findOne({email: req.body.email})
+  User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
         return res.redirect('/login');
       }
-      req.session.user = user;
-      req.session.isLoggedIn = true;
-      req.session.save(err => {
+      // Checking if the password match
+      bcrypt.compare(req.body.password, user.password)
+        .then(doMatch => {
+          if (doMatch) {
+            req.session.user = user;
+            req.session.isLoggedIn = true;
+            return req.session.save(err => {
+              if (err) {
+                console.log(err);
+              }
+              res.redirect('/');
+            });
+          }
+          res.redirect('/login');
+        }).catch((err) => {
         console.log(err);
-        res.redirect('/');
+        res.redirect('/login');
       });
-    })
-    .catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 };
 
 exports.getSignup = (req, res, next) => {
@@ -55,7 +66,9 @@ exports.postSignup = (req, res, next) => {
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
-    console.log(err);
+    if (err) {
+      console.log(err);
+    }
     res.redirect('/');
   });
 };
