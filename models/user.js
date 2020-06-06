@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-  username: {
+  email: {
     type: String,
     required: true
   },
-  email: {
+  password: {
     type: String,
     required: true
   },
@@ -56,10 +56,3 @@ userSchema.methods.clearCart = function () {
 };
 
 module.exports = mongoose.model('User', userSchema);
-
-// getOrders = () => {
-//   return getDb()
-//     .collection('orders')
-//     .find({ 'user._id': new ObjectId(this._id) })
-//     .toArray();
-// };
