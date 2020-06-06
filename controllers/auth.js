@@ -29,7 +29,7 @@ exports.getSignup = (req, res, next) => {
   });
 };
 
-exports.getSignup = (req, res, next) => {
+exports.postSignup = (req, res, next) => {
 };
 
 exports.postLogout = (req, res, next) => {
