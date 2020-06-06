@@ -7,12 +7,12 @@
 <%- include('../includes/navigation.ejs') %>
 
 <main>
-  <% if (errorMessage) { %>
-    <div class="user-message user-message__error"><%= errorMessage %></div>
-  <% } %>
   <div class="centered">
     <h1>Login</h1>
   </div>
+  <% if (errorMessage) { %>
+    <div class="user-message user-message__error"><%= errorMessage %></div>
+  <% } %>
   <form class="login-form" method="POST" action="/login">
     <div class="form-control">
       <label for="email">E-Mail</label>

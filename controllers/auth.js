@@ -44,7 +44,8 @@ exports.postLogin = (req, res, next) => {
 exports.getSignup = (req, res, next) => {
   res.render('auth/signup', {
     title: 'Signup',
-    path: '/signup'
+    path: '/signup',
+    errorMessage: getErrorMessage(req)
   });
 };
 
@@ -53,6 +54,8 @@ exports.postSignup = (req, res, next) => {
     .then(userDoc => {
       if (userDoc) {
         // The user already exists!
+        req.flash('error', 'E-Mail address already exists, please pick' +
+          ' another one.');
         return res.redirect('/signup');
       }
       return bcrypt.hash(req.body.password, 12)

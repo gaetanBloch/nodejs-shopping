@@ -10,6 +10,9 @@
   <div class="centered">
     <h1>Signup</h1>
   </div>
+  <% if (errorMessage) { %>
+    <div class="user-message user-message__error"><%= errorMessage %></div>
+  <% } %>
   <form class="login-form" action="/signup" method="POST">
     <div class="form-control">
       <label for="email">E-Mail</label>
