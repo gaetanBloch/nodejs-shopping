@@ -91,7 +91,8 @@ exports.getSignup = (req, res, next) => {
       email: '',
       password: '',
       confirmPassword: ''
-    }
+    },
+    validationErrors: []
   });
 };
 
