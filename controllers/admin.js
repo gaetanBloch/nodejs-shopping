@@ -60,6 +60,10 @@ exports.getEditProduct = (req, res, next) => {
 exports.postEditProduct = (req, res, next) => {
   Product.findById(req.body.id)
     .then((product) => {
+      // Protect the edit by another user
+      if(product.userId !== req.user._id) {
+        return res.redirect('/');
+      }
       product.title = req.body.title;
       product.price = +req.body.price;
       product.imageUrl = req.body.imageUrl;
