@@ -6,11 +6,11 @@ const nodemailer = require('nodemailer');
 const User = require('../models/user');
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 2525,
+  host: "smtp-relay.sendinblue.com",
+  port: 587,
   auth: {
-    user: "bd522f57618a59",
-    pass: "a774c3812cee92"
+    user: "gaetan.bloch@gmail.com",
+    pass: "LxEAYtRIpszUafCZ"
   }
 });
 
