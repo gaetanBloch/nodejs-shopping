@@ -8,10 +8,19 @@ const router = express.Router();
 
 const getValidityHandlers = () => {
   return [
-    body('title').isString().isLength({ min: 3 }).trim(),
-    body('imageUrl').isURL(),
-    body('price').isFloat(),
-    body('description').isString().isLength({ min: 5, max: 400 }).trim()
+    body('title', 'Title should have at least 3 characters.')
+      .isString()
+      .isLength({ min: 3 })
+      .trim(),
+    body('imageUrl', 'The Image URL should be a valid URL.')
+      .isURL(),
+    body('price', 'The Price should be a floating number.')
+      .isFloat(),
+    body('description', 'The description should be at least 3 characters' +
+      ' and 400 at maximum.')
+      .isString()
+      .isLength({ min: 5, max: 400 })
+      .trim()
   ];
 }
 
