@@ -2,6 +2,7 @@ const crypto = require('crypto');
 
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
+const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
 
@@ -25,6 +26,15 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render('auth/login', {
+      title: 'Login',
+      path: '/login',
+      errorMessage: errors.array()
+    });
+  }
+
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
