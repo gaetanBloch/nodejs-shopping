@@ -23,7 +23,7 @@ exports.postAddProduct = (req, res, next) => {
       product: {
         title: req.body.title,
         imageUrl: req.body.imageUrl,
-        price: req.body.price,
+        price: +req.body.price,
         description: req.body.description
       },
       errorMessage: errors.array()[0].msg
@@ -77,6 +77,22 @@ exports.getEditProduct = (req, res, next) => {
 };
 
 exports.postEditProduct = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).render('admin/edit-product', {
+      title: 'Edit Product',
+      path: '/admin/add-product',
+      editing: true,
+      product: {
+        title: req.body.title,
+        imageUrl: req.body.imageUrl,
+        price: +req.body.price,
+        description: req.body.description
+      },
+      errorMessage: errors.array()[0].msg
+    });
+  }
+
   Product.findById(req.body.id)
     .then((product) => {
       // Protect the edit by another user
