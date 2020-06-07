@@ -2,6 +2,7 @@ const express = require('express');
 const { check, body } = require('express-validator');
 
 const authController = require('../controllers/auth');
+const User = require('../models/user');
 
 const router = express.Router();
 
@@ -23,14 +24,28 @@ router.post(
 router.get('/signup', authController.getSignup);
 
 router.post(
-  '/signup',
-  body('confirmPassword')
-    .custom((value, { req }) => {
-      if (value !== req.body.password) {
-        throw new Error('Passwords have to match!');
-      }
-      return true;
-    }),
+  '/signup', [
+    body('email')
+      .custom(value => {
+        return User.findOne({ email: value })
+          .then(user => {
+            if (user) {
+              // The user already exists!
+              // We return a promise rejection
+              return Promise.reject(
+                'E-Mail address already exists, please pick' +
+                ' another one.');
+            }
+          });
+      }),
+    body('confirmPassword')
+      .custom((value, { req }) => {
+        if (value !== req.body.password) {
+          throw new Error('Passwords have to match!');
+        }
+        return true;
+      })
+  ],
   authController.postSignup
 );
 
