@@ -25,7 +25,8 @@ exports.getLogin = (req, res, next) => {
     oldInput: {
       email: '',
       password: ''
-    }
+    },
+    validationErrors: []
   });
 };
 
@@ -39,7 +40,8 @@ exports.postLogin = (req, res, next) => {
       oldInput: {
         email: req.body.email,
         password: req.body.password
-      }
+      },
+      validationErrors: errors.array()
     });
   }
 
