@@ -75,7 +75,12 @@ exports.getSignup = (req, res, next) => {
   res.render('auth/signup', {
     title: 'Signup',
     path: '/signup',
-    errorMessage: getErrorMessage(req)
+    errorMessage: getErrorMessage(req),
+    oldInput: {
+      email: '',
+      password: '',
+      confirmPassword: ''
+    }
   });
 };
 
@@ -85,7 +90,12 @@ exports.postSignup = (req, res, next) => {
     return res.status(422).render('auth/signup', {
       title: 'Signup',
       path: '/signup',
-      errorMessage: errors.array()[0].msg
+      errorMessage: errors.array()[0].msg,
+      oldInput: {
+        email: req.body.email,
+        password: req.body.password,
+        confirmPassword: req.body.confirmPassword
+      }
     });
   }
 
