@@ -21,15 +21,17 @@
     <div class="form-control">
       <label for="password">Password</label>
       <input type="password" name="password" id="password">
+      <div class="align-right">
+        <a class="reset-password" href="/reset">Forgot Password ?</a>
+      </div>
     </div>
+
     <div class="centered">
       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
       <button class="btn" type="submit">Login</button>
     </div>
   </form>
-  <div class="centered">
-    <a href="/reset">Reset Password</a>
-  </div>
+
 </main>
 
 <%- include('../includes/end.ejs') %>
