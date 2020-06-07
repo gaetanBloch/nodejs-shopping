@@ -6,9 +6,9 @@ const User = require('../models/user');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
   auth: {
-    api_key : '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'
+    api_key: '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'
   }
-}))
+}));
 
 const { getErrorMessage } = require('./utils');
 
@@ -66,16 +66,26 @@ exports.postSignup = (req, res, next) => {
           ' another one.');
         return res.redirect('/signup');
       }
-      return bcrypt.hash(req.body.password, 12)
-        .then(password => {
-          const user = new User({
-            email: req.body.email,
-            password: password,
-            cart: { products: [] }
-          });
-          return user.save();
-        }).then(() => res.redirect('/login'));
-    }).catch((err) => console.log(err));
+      return bcrypt.hash(req.body.password, 12);
+    })
+    .then(password => {
+      const user = new User({
+        email: req.body.email,
+        password,
+        cart: { products: [] }
+      });
+      return user.save();
+    })
+    .then(() => {
+      res.redirect('/login');
+      return transporter.sendMail({
+        to: req.body.email,
+        from: 'gaetan.bloch@gmail.com',
+        subject: 'Singup Succeeded',
+        html: '<h1>You successfully signed up</h1>'
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 exports.postLogout = (req, res, next) => {
