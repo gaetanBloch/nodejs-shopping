@@ -8,15 +8,23 @@ const router = express.Router();
 
 router.get('/login', authController.getLogin);
 
+const isEmail = () => {
+  return body('email')
+    .isEmail()
+    .withMessage('Please enter a valid email.');
+};
+
+const isPassword = () => {
+  return body('password', 'Please enter a password with only numbers and ' +
+    'text and at least 5 characters.')
+    .isLength({ min: 5 })
+    .isAlphanumeric();
+};
+
 router.post(
   '/login', [
-    check('email')
-      .isEmail()
-      .withMessage('Please enter a valid email.'),
-    body('password', 'Please enter a password with only numbers and text and' +
-      ' at least 5 characters.')
-      .isLength({ min: 5 })
-      .isAlphanumeric()
+    isEmail(),
+    isPassword()
   ],
   authController.postLogin
 );
@@ -25,9 +33,7 @@ router.get('/signup', authController.getSignup);
 
 router.post(
   '/signup', [
-    body('email')
-      .isEmail()
-      .withMessage('Please enter a valid email.')
+    isEmail()
       .custom(value => {
         return User.findOne({ email: value })
           .then(user => {
@@ -40,10 +46,7 @@ router.post(
             }
           });
       }),
-    body('password', 'Please enter a password with only numbers and text and' +
-      ' at least 5 characters.')
-      .isLength({ min: 5 })
-      .isAlphanumeric(),
+    isPassword(),
     body('confirmPassword')
       .custom((value, { req }) => {
         if (value !== req.body.password) {
