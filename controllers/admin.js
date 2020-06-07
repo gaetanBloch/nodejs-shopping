@@ -116,7 +116,7 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.postDeleteProduct = (req, res, next) => {
-  Product.deleteOne({id: req.body.id, userId: req.user._id})
+  Product.deleteOne({_id: req.body.id, userId: req.user._id})
     .then(() => res.redirect('/admin/products'))
     .catch((err) => console.log(err));
 };
