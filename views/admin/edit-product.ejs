@@ -9,8 +9,7 @@
 <main>
   <form class="product-form"
         method="POST"
-        action="/admin/<% if(editing) { %>edit-product
-            <% } else { %>add-product<% } %>">
+        action="/admin/<% editing ? 'edit-product' : 'add-product' %>">
     <div class="form-control">
       <label for="title">Title</label>
       <input type="text" name="title" id="title" value="<%= product.title %>">
@@ -44,9 +43,7 @@
     <% } %>
 
     <button class="btn" type="submit">
-      <% if(editing) { %>Update Product
-      <% } else { %>Add Product
-      <% } %>
+      <% editing ? 'Update Product' : 'Add Product' %>
     </button>
   </form>
 </main>
