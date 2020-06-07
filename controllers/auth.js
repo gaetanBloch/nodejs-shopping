@@ -21,7 +21,11 @@ exports.getLogin = (req, res, next) => {
   res.render('auth/login', {
     title: 'Login',
     path: '/login',
-    errorMessage: getErrorMessage(req)
+    errorMessage: getErrorMessage(req),
+    oldInput: {
+      email: '',
+      password: ''
+    }
   });
 };
 
@@ -31,7 +35,11 @@ exports.postLogin = (req, res, next) => {
     return res.status(422).render('auth/login', {
       title: 'Login',
       path: '/login',
-      errorMessage: errors.array()[0].msg
+      errorMessage: errors.array()[0].msg,
+      oldInput: {
+        email: req.body.email,
+        password: req.body.password
+      }
     });
   }
 
@@ -99,7 +107,7 @@ exports.postSignup = (req, res, next) => {
         html: '<h1>You successfully signed up</h1>'
       });
     }).catch((err) => console.log(err));
-}
+};
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
