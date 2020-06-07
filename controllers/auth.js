@@ -48,8 +48,17 @@ exports.postLogin = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {
       if (!user) {
-        req.flash('error', 'Invalid email or password.');
-        return res.redirect('/login');
+        req.flash('error',);
+        return res.status(422).render('auth/login', {
+          title: 'Login',
+          path: '/login',
+          errorMessage: 'Invalid email or password.',
+          oldInput: {
+            email: req.body.email,
+            password: req.body.password
+          },
+          validationErrors: [{ param: 'email' }, { param: 'password' }]
+        });
       }
       // Checking if the password match
       bcrypt.compare(req.body.password, user.password)
