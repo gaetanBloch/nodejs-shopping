@@ -32,7 +32,7 @@ exports.getProducts = (req, res, next) => {
     '/admin/products',
     req,
     res,
-    {userId: req.user._id}
+    { userId: req.user._id }
   );
 };
 
@@ -61,21 +61,21 @@ exports.postEditProduct = (req, res, next) => {
   Product.findById(req.body.id)
     .then((product) => {
       // Protect the edit by another user
-      if(product.userId !== req.user._id) {
+      if (product.userId !== req.user._id) {
         return res.redirect('/');
       }
       product.title = req.body.title;
       product.price = +req.body.price;
       product.imageUrl = req.body.imageUrl;
       product.description = req.body.description;
-      return product.save();
+      return product.save()
+        .then(() => res.redirect('/admin/products'));
     })
-    .then(() => res.redirect('/admin/products'))
     .catch((err) => console.log(err));
 };
 
 exports.postDeleteProduct = (req, res, next) => {
-  Product.findByIdAndRemove(req.body.id, { useFindAndModify: false })
+  Product.deleteOne({id: req.body.id, userId: req.user._id})
     .then(() => res.redirect('/admin/products'))
     .catch((err) => console.log(err));
 };
