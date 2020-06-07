@@ -7,9 +7,12 @@
 <%- include('../includes/navigation.ejs') %>
 
 <main>
+  <% if (errorMessage) { %>
+    <div class="user-message user-message__error"><%= errorMessage %></div>
+  <% } %>
   <form class="product-form"
         method="POST"
-        action="/admin/<% editing ? 'edit-product' : 'add-product' %>">
+        action="/admin/<% if(editing) { %>edit-product<% } else { %>add-product<% } %>">
     <div class="form-control">
       <label for="title">Title</label>
       <input type="text" name="title" id="title" value="<%= product.title %>">
@@ -42,9 +45,13 @@
       <input type="hidden" value="<%= product._id %>" name="id">
     <% } %>
 
-    <button class="btn" type="submit">
-      <% editing ? 'Update Product' : 'Add Product' %>
-    </button>
+    <div class="centered">
+      <button class="btn" type="submit">
+        <% if(editing) { %>Update Product
+        <% } else { %>Add Product
+        <% } %>
+      </button>
+    </div>
   </form>
 </main>
 
