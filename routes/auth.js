@@ -11,14 +11,16 @@ router.get('/login', authController.getLogin);
 const isEmail = () => {
   return body('email')
     .isEmail()
-    .withMessage('Please enter a valid email.');
+    .withMessage('Please enter a valid email.')
+    .normalizeEmail();
 };
 
 const isPassword = () => {
   return body('password', 'Please enter a password with only numbers and ' +
     'text and at least 5 characters.')
     .isLength({ min: 5 })
-    .isAlphanumeric();
+    .isAlphanumeric()
+    .trim();
 };
 
 router.post(
@@ -47,6 +49,7 @@ router.post(
       }),
     isPassword(),
     body('confirmPassword')
+      .trim()
       .custom((value, { req }) => {
         if (value !== req.body.password) {
           throw new Error('Passwords have to match!');
