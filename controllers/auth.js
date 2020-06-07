@@ -154,7 +154,12 @@ exports.getNewPassword = (req, res, next) => {
       title: 'New Password',
       path: '/new-password',
       errorMessage: getErrorMessage(req),
-      userId: user._id.toString()
+      userId: user._id.toString(),
+      passwordToken: token
     });
   }).catch((err) => console.log(err));
+};
+
+exports.postNewPassword = (req, res, next) => {
+
 };
