@@ -9,8 +9,17 @@ router.get('/login', authController.getLogin);
 
 router.post(
   '/login',
-  check('email').isEmail().withMessage('Please enter a valid email.'),
-  authController.postLogin);
+  check('email')
+    .isEmail()
+    .withMessage('Please enter a valid email.')
+    .custom(value => {
+      if(value === 'test@test.com'){
+        throw new Error('This email address is forbidden.');
+      }
+      return true;
+    }),
+  authController.postLogin
+);
 
 router.get('/signup', authController.getSignup);
 
