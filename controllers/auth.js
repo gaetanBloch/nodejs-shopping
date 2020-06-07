@@ -6,11 +6,11 @@ const nodemailer = require('nodemailer');
 const User = require('../models/user');
 
 const transporter = nodemailer.createTransport({
-  host: "smtp-relay.sendinblue.com",
+  host: 'smtp-relay.sendinblue.com',
   port: 587,
   auth: {
-    user: "gaetan.bloch@gmail.com",
-    pass: "LxEAYtRIpszUafCZ"
+    user: 'gaetan.bloch@gmail.com',
+    pass: 'LxEAYtRIpszUafCZ'
   }
 });
 
@@ -144,9 +144,17 @@ exports.postReset = (req, res, next) => {
 };
 
 exports.getNewPassword = (req, res, next) => {
-  res.render('auth/new-password', {
-    title: 'New Password',
-    path: '/new-password',
-    errorMessage: getErrorMessage(req)
-  });
+  const token = req.params.token;
+  // Check the token in the User and that it has not expired
+  User.findOne({
+    resetToken: token,
+    resetTokenExpiration: { $gt: Date.now() }
+  }).then(user => {
+    res.render('auth/new-password', {
+      title: 'New Password',
+      path: '/new-password',
+      errorMessage: getErrorMessage(req),
+      userId: user._id.toString()
+    });
+  }).catch((err) => console.log(err));
 };
