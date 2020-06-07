@@ -1,3 +1,5 @@
+const crypto = require('crypto');
+
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
@@ -59,8 +61,8 @@ exports.getSignup = (req, res, next) => {
 
 exports.postSignup = (req, res, next) => {
   User.findOne({ email: req.body.email })
-    .then(userDoc => {
-      if (userDoc) {
+    .then(user => {
+      if (user) {
         // The user already exists!
         req.flash('error', 'E-Mail address already exists, please pick' +
           ' another one.');
@@ -84,8 +86,7 @@ exports.postSignup = (req, res, next) => {
         subject: 'Singup Succeeded',
         html: '<h1>You successfully signed up</h1>'
       });
-    })
-    .catch((err) => console.log(err));
+    }).catch((err) => console.log(err));
 };
 
 exports.postLogout = (req, res, next) => {
@@ -102,5 +103,40 @@ exports.getReset = (req, res, next) => {
     title: 'Reset Password',
     path: '/reset',
     errorMessage: getErrorMessage(req)
+  });
+};
+
+exports.postReset = (req, res, next) => {
+  crypto.randomBytes(32, (err, buffer) => {
+    if (err) {
+      console.log(err);
+      return res.redirect('/reset');
+    }
+    const token = buffer.toString('hex');
+    User.findOne({ email: req.body.email })
+      .then(user => {
+        if (!user) {
+          req.flash('error', 'No account with that email address found.');
+          return res.redirect('/reset');
+        }
+        user.resetToken = token;
+        // Expires in one hour
+        user.resetTokenExpiration = Date.now() + 3600000;
+        return user.save();
+      }).then(() => {
+      res.redirect('/');
+      return transporter.sendMail({
+        to: req.body.email,
+        from: 'gaetan.bloch@gmail.com',
+        subject: 'Password Reset',
+        html: `
+          <p>You requested a new password reset</p>
+          <p>Click this <a href="http://localhost:3000/reset/${token}">link</a>
+           to set a new password.</p>
+          <br>
+          <i>This link will be active for only one hour.</i>
+        `
+      });
+    }).catch((err) => console.log(err));
   });
 };
