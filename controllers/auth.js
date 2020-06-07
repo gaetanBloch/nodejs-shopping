@@ -142,3 +142,11 @@ exports.postReset = (req, res, next) => {
     }).catch((err) => console.log(err));
   });
 };
+
+exports.getNewPassword = (req, res, next) => {
+  res.render('auth/new-password', {
+    title: 'New Password',
+    path: '/new-password',
+    errorMessage: getErrorMessage(req)
+  });
+};
