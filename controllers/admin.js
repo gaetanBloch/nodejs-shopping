@@ -31,7 +31,8 @@ exports.getProducts = (req, res, next) => {
     'Admin Products',
     '/admin/products',
     req,
-    res
+    res,
+    {userId: req.user._id}
   );
 };
 

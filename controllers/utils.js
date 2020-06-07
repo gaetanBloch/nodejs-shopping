@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 
-const fetchAllProducts = (file, title, path, req, res) => {
-  Product.find()
+const fetchAllProducts = (file, title, path, req, res, condition = {}) => {
+  Product.find(condition)
     .then((products) => res.render(file, {
       products,
       title,
