@@ -72,6 +72,14 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postSignup = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.render('auth/signup', {
+      title: 'Signup',
+      path: '/signup',
+      errorMessage: errors.array()[0].msg
+    });
+  }
   User.findOne({ email: req.body.email })
     .then(user => {
       if (user) {
@@ -99,7 +107,8 @@ exports.postSignup = (req, res, next) => {
         html: '<h1>You successfully signed up</h1>'
       });
     }).catch((err) => console.log(err));
-};
+}
+;
 
 exports.postLogout = (req, res, next) => {
   req.session.destroy(err => {
