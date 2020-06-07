@@ -26,6 +26,8 @@ router.get('/signup', authController.getSignup);
 router.post(
   '/signup', [
     body('email')
+      .isEmail()
+      .withMessage('Please enter a valid email.')
       .custom(value => {
         return User.findOne({ email: value })
           .then(user => {
