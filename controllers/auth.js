@@ -31,7 +31,7 @@ exports.postLogin = (req, res, next) => {
     return res.render('auth/login', {
       title: 'Login',
       path: '/login',
-      errorMessage: errors.array()
+      errorMessage: errors.array()[0].msg
     });
   }
 
