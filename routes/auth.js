@@ -41,8 +41,7 @@ router.post(
               // The user already exists!
               // We return a promise rejection
               return Promise.reject(
-                'E-Mail address already exists, please pick' +
-                ' another one.');
+                'E-Mail address already exists, please pick another one.');
             }
           });
       }),

@@ -28,7 +28,7 @@ exports.getLogin = (req, res, next) => {
 exports.postLogin = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.render('auth/login', {
+    return res.status(422).render('auth/login', {
       title: 'Login',
       path: '/login',
       errorMessage: errors.array()[0].msg
@@ -74,7 +74,7 @@ exports.getSignup = (req, res, next) => {
 exports.postSignup = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.render('auth/signup', {
+    return res.status(422).render('auth/signup', {
       title: 'Signup',
       path: '/signup',
       errorMessage: errors.array()[0].msg
