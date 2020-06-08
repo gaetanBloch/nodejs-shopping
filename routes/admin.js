@@ -12,8 +12,6 @@ const getValidityHandlers = () => {
       .isString()
       .isLength({ min: 3 })
       .trim(),
-    body('imageUrl', 'The Image URL should be a valid URL.')
-      .isURL(),
     body('price', 'The Price should be a floating number.')
       .isFloat(),
     body('description', 'The description should be at least 3 characters' +

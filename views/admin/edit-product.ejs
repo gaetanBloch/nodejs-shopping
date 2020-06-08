@@ -17,6 +17,7 @@
   <% } %>
   <form class="product-form"
         method="POST"
+        enctype="multipart/form-data"
         action="/admin/<% if(editing) { %>edit-product<% } else { %>add-product<% } %>">
     <div class="form-control">
       <label for="title">Title</label>
