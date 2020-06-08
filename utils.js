@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const Product = require('./models/product');
 
 const fetchAllProducts = (file, title, path, req, res, next, condition = {}) => {
@@ -27,6 +29,15 @@ const forwardError = (err, next) => {
   return next(error);
 }
 
+const deleteFile = (filePath) => {
+  fs.unlink(filePath, (err) => {
+    if (err) {
+      throw err;
+    }
+  })
+}
+
 exports.fetchAllProducts = fetchAllProducts;
 exports.getErrorMessage = getErrorMessage;
 exports.forwardError = forwardError;
+exports.deleteFile = deleteFile;
