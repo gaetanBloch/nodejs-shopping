@@ -24,20 +24,31 @@ const store = new MongoDbSessionStore({
   uri: MONGODB_URI,
   collection: 'sessions'
 });
+
+// Multer configs
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
+  destination: (req, file, cb) => {
     cb(null, 'images');
   },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + '-' +  file.originalname);
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + '-' + file.originalname);
   }
 });
+const fileFilter = (req, file, cb) => {
+  if (file.mimetype === 'image/png' ||
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image.jpeg') {
+    cb(null, true);
+  } else {
+    cb(null, false);
+  }
+};
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(multer({ storage }).single('image'));
+app.use(multer({ storage, fileFilter }).single('image'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret: 'my secret',
