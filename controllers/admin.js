@@ -156,7 +156,14 @@ exports.postEditProduct = (req, res, next) => {
 };
 
 exports.postDeleteProduct = (req, res, next) => {
-  Product.deleteOne({ _id: req.body.id, userId: req.user._id })
+  Product.findById(req.body.id)
+    .then(product => {
+      if (!product) {
+        return forwardError('No Product for id = ' + req.body.id);
+      }
+      deleteFile(product.imageUrl);
+      return Product.deleteOne({ _id: req.body.id, userId: req.user._id });
+    })
     .then(() => res.redirect('/admin/products'))
     .catch(err => forwardError(err, next));
 };
