@@ -104,7 +104,6 @@ exports.postEditProduct = (req, res, next) => {
       editing: true,
       product: {
         title: req.body.title,
-        imageUrl: req.body.imageUrl,
         price: +req.body.price,
         description: req.body.description,
         _id: req.body.id
@@ -122,8 +121,10 @@ exports.postEditProduct = (req, res, next) => {
       }
       product.title = req.body.title;
       product.price = +req.body.price;
-      product.imageUrl = req.body.imageUrl;
       product.description = req.body.description;
+      if (req.file) {
+        product.imageUrl = req.file.path;
+      }
       return product.save()
         .then(() => res.redirect('/admin/products'));
     })
