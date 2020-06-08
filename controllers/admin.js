@@ -3,55 +3,86 @@ const { validationResult } = require('express-validator');
 const Product = require('../models/product');
 const { fetchAllProducts, forwardError } = require('../utils');
 
-exports.getAddProduct = (req, res, next) => {
-  res.render('admin/edit-product', {
-    title: 'Add Product',
-    path: '/admin/add-product',
-    editing: false,
-    product: {},
-    errorMessage: null,
-    validationErrors: []
+const renderProductForm = (
+  res,
+  status = 200,
+  product = {},
+  errorMessage = null,
+  validationErrors = [],
+  title = 'Add Product',
+  path = '/admin/add-product',
+  editing = false
+) => {
+  return res.status(status).render('admin/edit-product', {
+    title,
+    path,
+    editing,
+    product,
+    errorMessage,
+    validationErrors
   });
 };
 
+const renderProductFormError = (
+  req,
+  res,
+  errorMessage,
+  validationErrors = []) => {
+  return renderProductForm(
+    res,
+    422,
+    {
+      title: req.body.title,
+      price: +req.body.price,
+      description: req.body.description
+    },
+    errorMessage,
+    validationErrors
+  );
+};
+
+const renderEditProductForm = (
+  res,
+  product,
+  status = 200,
+  errorMessage = null,
+  validationErrors = []
+) => {
+  return renderProductForm(
+    res,
+    status,
+    product,
+    errorMessage,
+    validationErrors,
+    'Edit Product',
+    '/admin/edit-product',
+    true
+  );
+};
+
+exports.getAddProduct = (req, res, next) => {
+  renderProductForm(res);
+};
+
 exports.postAddProduct = (req, res, next) => {
-  if (!req.file) {
-    return res.status(422).render('admin/edit-product', {
-      title: 'Add Product',
-      path: '/admin/add-product',
-      editing: false,
-      product: {
-        title: req.body.title,
-        price: +req.body.price,
-        description: req.body.description
-      },
-      errorMessage: 'Attached file is not an image.',
-      validationErrors: []
-    });
-  }
-
-  const imageUrl = req.file.path;
-
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).render('admin/edit-product', {
-      title: 'Add Product',
-      path: '/admin/add-product',
-      editing: false,
-      product: {
-        title: req.body.title,
-        price: +req.body.price,
-        description: req.body.description
-      },
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array()
-    });
+    return renderProductFormError(
+      req,
+      res,
+      errors.array()[0].msg,
+      errors.array()
+    );
+  }
+
+  if (!req.file) {
+    return renderProductFormError(req, res, 'Attached file is not an image.');
   }
 
   const product = new Product({
     title: req.body.title,
     price: +req.body.price,
-    imageUrl: imageUrl,
+    imageUrl: req.file.path,
     description: req.body.description,
     userId: req.user
   });
@@ -83,14 +114,7 @@ exports.getEditProduct = (req, res, next) => {
       if (!product) {
         return res.redirect('/admin/products');
       }
-      res.render('admin/edit-product', {
-        title: 'Edit Product',
-        path: '/admin/edit-product',
-        editing: editMode,
-        product,
-        errorMessage: null,
-        validationErrors: []
-      });
+      renderEditProductForm(res, product);
     })
     .catch(err => forwardError(err, next));
 };
@@ -98,19 +122,17 @@ exports.getEditProduct = (req, res, next) => {
 exports.postEditProduct = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(422).render('admin/edit-product', {
-      title: 'Edit Product',
-      path: '/admin/add-product',
-      editing: true,
-      product: {
+    renderEditProductForm(
+      res,
+      {
         title: req.body.title,
         price: +req.body.price,
         description: req.body.description,
         _id: req.body.id
       },
-      errorMessage: errors.array()[0].msg,
-      validationErrors: errors.array()
-    });
+      errors.array()[0].msg,
+      errors.array()
+    );
   }
 
   Product.findById(req.body.id)
