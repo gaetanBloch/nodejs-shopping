@@ -5,6 +5,7 @@ const nodemailer = require('nodemailer');
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
+const { forwardError } = require('./utils');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp-relay.sendinblue.com',
@@ -76,10 +77,12 @@ exports.postLogin = (req, res, next) => {
           req.flash('error', 'Invalid email or password.');
           res.redirect('/login');
         }).catch((err) => {
-        console.log(err);
+        if (err) {
+          console.log(err);
+        }
         res.redirect('/login');
       });
-    }).catch((err) => console.log(err));
+    }).catch(err => forwardError(err, next));
 };
 
 exports.getSignup = (req, res, next) => {
@@ -128,7 +131,7 @@ exports.postSignup = (req, res, next) => {
         subject: 'Singup Succeeded',
         html: '<h1>You successfully signed up</h1>'
       });
-    }).catch((err) => console.log(err));
+    }).catch(err => forwardError(err, next));
 };
 
 exports.postLogout = (req, res, next) => {
@@ -179,7 +182,7 @@ exports.postReset = (req, res, next) => {
           <i>This link will be active for only one hour.</i>
         `
       });
-    }).catch((err) => console.log(err));
+    }).catch(err => forwardError(err, next));
   });
 };
 
@@ -197,7 +200,7 @@ exports.getNewPassword = (req, res, next) => {
       userId: user._id.toString(),
       passwordToken: token
     });
-  }).catch((err) => console.log(err));
+  }).catch(err => forwardError(err, next));
 };
 
 exports.postNewPassword = (req, res, next) => {
@@ -215,5 +218,5 @@ exports.postNewPassword = (req, res, next) => {
     user.resetTokenExpiration = undefined;
     return user.save();
   }).then(() => res.redirect('/login'))
-    .catch((err) => console.log(err));
+    .catch(err => forwardError(err, next));
 };

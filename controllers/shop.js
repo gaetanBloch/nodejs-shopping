@@ -1,14 +1,21 @@
 const Product = require('../models/product');
 const Order = require('../models/order');
 
-const { fetchAllProducts } = require('./utils');
+const { fetchAllProducts, forwardError } = require('./utils');
 
 exports.getIndex = (req, res, next) => {
-  fetchAllProducts('shop/index', 'Shop', '/', req, res);
+  fetchAllProducts('shop/index', 'Shop', '/', req, res, next);
 };
 
 exports.getProducts = (req, res, next) => {
-  fetchAllProducts('shop/product-list', 'All Products', '/products', req, res);
+  fetchAllProducts(
+    'shop/product-list',
+    'All Products',
+    '/products',
+    req,
+    res,
+    next
+  );
 };
 
 exports.getProduct = (req, res, next) => {
@@ -19,8 +26,7 @@ exports.getProduct = (req, res, next) => {
         path: '/products',
         product
       });
-    })
-    .catch((err) => console.log(err));
+    }).catch(err => forwardError(err, next));
 };
 
 exports.getCart = (req, res, next) => {
@@ -34,22 +40,21 @@ exports.getCart = (req, res, next) => {
         path: '/cart',
         products
       });
-    })
-    .catch((err) => console.log(err));
+    }).catch(err => forwardError(err, next));
 };
 
 exports.postCart = (req, res, next) => {
   Product.findById(req.body.productId)
     .then((product) => req.user.addToCart(product))
     .then(() => res.redirect('/cart'))
-    .catch((err) => console.log(err));
+    .catch(err => forwardError(err, next));
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
   req.user
     .deleteProductFromCart(req.body.productId)
     .then(() => res.redirect('/cart'))
-    .catch((err) => console.log(err));
+    .catch(err => forwardError(err, next));
 };
 
 exports.postOrder = (req, res, next) => {
@@ -74,7 +79,7 @@ exports.postOrder = (req, res, next) => {
     .then(order => order.save())
     .then(() => req.user.clearCart())
     .then(() => res.redirect('/orders'))
-    .catch((err) => console.log(err));
+    .catch(err => forwardError(err, next));
 };
 
 exports.getOrders = (req, res, next) => {
@@ -86,5 +91,5 @@ exports.getOrders = (req, res, next) => {
         orders
       });
     })
-    .catch((err) => console.log(err));
+    .catch(err => forwardError(err, next));
 };

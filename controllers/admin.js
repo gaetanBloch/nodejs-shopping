@@ -1,9 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const Product = require('../models/product');
-const { fetchAllProducts } = require('./utils');
-
-const mongoose = require('mongoose');
+const { fetchAllProducts, forwardError } = require('./utils');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {
@@ -35,7 +33,6 @@ exports.postAddProduct = (req, res, next) => {
   }
 
   const product = new Product({
-    _id: new mongoose.Types.ObjectId('5edd5695f6f6095090816a98'),
     title: req.body.title,
     price: +req.body.price,
     imageUrl: req.body.imageUrl,
@@ -45,11 +42,7 @@ exports.postAddProduct = (req, res, next) => {
   product
     .save()
     .then(() => res.redirect('/products'))
-    .catch(err => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      next(error);
-    });
+    .catch(err => forwardError(err, next));
 };
 
 exports.getProducts = (req, res, next) => {
@@ -59,6 +52,7 @@ exports.getProducts = (req, res, next) => {
     '/admin/products',
     req,
     res,
+    next,
     { userId: req.user._id }
   );
 };
@@ -82,11 +76,7 @@ exports.getEditProduct = (req, res, next) => {
         validationErrors: []
       });
     })
-    .catch(err => {
-      const error = new Error(err);
-      error.httpStatusCode = 500;
-      next(error);
-    });
+    .catch(err => forwardError(err, next));
 };
 
 exports.postEditProduct = (req, res, next) => {
@@ -121,11 +111,11 @@ exports.postEditProduct = (req, res, next) => {
       return product.save()
         .then(() => res.redirect('/admin/products'));
     })
-    .catch((err) => console.log(err));
+    .catch(err => forwardError(err, next));
 };
 
 exports.postDeleteProduct = (req, res, next) => {
   Product.deleteOne({ _id: req.body.id, userId: req.user._id })
     .then(() => res.redirect('/admin/products'))
-    .catch((err) => console.log(err));
+    .catch(err => forwardError(err, next));
 };

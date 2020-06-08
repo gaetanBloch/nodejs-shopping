@@ -1,13 +1,13 @@
 const Product = require('../models/product');
 
-const fetchAllProducts = (file, title, path, req, res, condition = {}) => {
+const fetchAllProducts = (file, title, path, req, res, next, condition = {}) => {
   Product.find(condition)
     .then((products) => res.render(file, {
       products,
       title,
       path
     }))
-    .catch((err) => console.log(err));
+    .catch(err => forwardError(err, next));
 };
 
 const getErrorMessage = (req) => {
@@ -20,5 +20,13 @@ const getErrorMessage = (req) => {
   return errorMessage;
 };
 
+const forwardError = (err, next) => {
+  console.log(err);
+  const error = new Error(err);
+  error.httpStatusCode = 500;
+  next(error);
+}
+
 exports.fetchAllProducts = fetchAllProducts;
 exports.getErrorMessage = getErrorMessage;
+exports.forwardError = forwardError;
