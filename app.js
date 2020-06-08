@@ -63,13 +63,15 @@ app.use((req, res, next) => {
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
+app.get('/500', errorController.get500);
 app.use(errorController.get404);
 
 mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Successfully connected to MongoDb...');
-    app.listen(3000);
-    console.log('Listening to port 3000...');
+    app.listen(3000, () => {
+      console.log('Listening to port 3000...');
+    });
   })
   .catch((err) => console.log(err));
