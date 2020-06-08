@@ -122,7 +122,7 @@ exports.getEditProduct = (req, res, next) => {
 exports.postEditProduct = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    renderEditProductForm(
+    return renderEditProductForm(
       res,
       {
         title: req.body.title,
@@ -130,6 +130,7 @@ exports.postEditProduct = (req, res, next) => {
         description: req.body.description,
         _id: req.body.id
       },
+      422,
       errors.array()[0].msg,
       errors.array()
     );
