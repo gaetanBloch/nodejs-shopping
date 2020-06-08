@@ -269,7 +269,7 @@ form {
 
 .user-message__error {
   border-color: red;
-  background-color: rgb(255, 176, 176);
+  background-color: rgb(255, 225, 225);
 }
 
 @media (min-width: 768px) {

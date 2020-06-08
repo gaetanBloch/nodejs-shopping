@@ -7,6 +7,11 @@
 <%- include('../includes/navigation.ejs') %>
 
 <main>
+  <h1 class="centered">
+    <% if(editing) { %>Edit Product
+    <% } else { %>Add Product
+    <% } %>
+  </h1>
   <% if (errorMessage) { %>
     <div class="user-message user-message__error"><%= errorMessage %></div>
   <% } %>
