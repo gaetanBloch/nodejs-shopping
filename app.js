@@ -42,11 +42,16 @@ app.use((req, res, next) => {
     return next();
   }
   User.findById(req.session.user._id)
-    .then((user) => {
+    .then(user => {
+      if (!user) {
+        next();
+      }
       req.user = user;
       next();
     })
-    .catch((err) => console.log(err));
+    .catch(err => {
+      throw new Error(err);
+    });
 });
 
 app.use((req, res, next) => {
