@@ -24,7 +24,7 @@ const forwardError = (err, next) => {
   console.log(err);
   const error = new Error(err);
   error.httpStatusCode = 500;
-  next(error);
+  return next(error);
 }
 
 exports.fetchAllProducts = fetchAllProducts;
