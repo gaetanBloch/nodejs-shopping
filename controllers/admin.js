@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const Product = require('../models/product');
-const { fetchAllProducts, forwardError } = require('../utils');
+const { fetchAllProducts, forwardError, deleteFile } = require('../utils');
 
 const renderProductForm = (
   res,
@@ -146,6 +146,7 @@ exports.postEditProduct = (req, res, next) => {
       product.price = +req.body.price;
       product.description = req.body.description;
       if (req.file) {
+        deleteFile(product.imageUrl);
         product.imageUrl = req.file.path;
       }
       return product.save()
