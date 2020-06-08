@@ -5,7 +5,7 @@ const nodemailer = require('nodemailer');
 const { validationResult } = require('express-validator');
 
 const User = require('../models/user');
-const { forwardError } = require('./utils');
+const { forwardError } = require('../utils');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp-relay.sendinblue.com',
@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-const { getErrorMessage } = require('./utils');
+const { getErrorMessage } = require('../utils');
 
 exports.getLogin = (req, res, next) => {
   res.render('auth/login', {

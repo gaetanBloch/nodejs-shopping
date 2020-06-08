@@ -1,7 +1,7 @@
 const Product = require('../models/product');
 const Order = require('../models/order');
 
-const { fetchAllProducts, forwardError } = require('./utils');
+const { fetchAllProducts, forwardError } = require('../utils');
 
 exports.getIndex = (req, res, next) => {
   fetchAllProducts('shop/index', 'Shop', '/', req, res, next);

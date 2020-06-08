@@ -13,6 +13,7 @@ const authRoutes = require('./routes/auth');
 
 const errorController = require('./controllers/error');
 const User = require('./models/user');
+const { forwardError } = require('./utils');
 
 const MONGODB_URI = 'mongodb+srv://gbloch:gaetan.bloch@' +
   'cluster0-hcscb.mongodb.net/shop?retryWrites=true&w=majority';
@@ -55,10 +56,7 @@ app.use((req, res, next) => {
       req.user = user;
       next();
     })
-    .catch(err => {
-      console.log(err);
-      next(new Error(err));
-    });
+    .catch(err => forwardError(err, next));
 });
 
 app.use('/admin', adminRoutes);

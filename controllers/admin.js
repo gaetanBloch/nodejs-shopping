@@ -1,7 +1,7 @@
 const { validationResult } = require('express-validator');
 
 const Product = require('../models/product');
-const { fetchAllProducts, forwardError } = require('./utils');
+const { fetchAllProducts, forwardError } = require('../utils');
 
 exports.getAddProduct = (req, res, next) => {
   res.render('admin/edit-product', {

@@ -1,4 +1,4 @@
-const Product = require('../models/product');
+const Product = require('./models/product');
 
 const fetchAllProducts = (file, title, path, req, res, next, condition = {}) => {
   Product.find(condition)
