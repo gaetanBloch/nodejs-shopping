@@ -65,21 +65,41 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.getCheckout = (req, res, next) => {
-
+  let products;
   req.user
     .populate('cart.products.productId')
     .execPopulate()
     .then((user) => {
-      const products = user.cart.products;
-      res.render('shop/checkout', {
-        title: 'Checkout',
-        path: null,
-        products,
-        totalPrice: products.reduce((price, product) => {
-          return price + product.quantity * product.productId.price;
-        }, 0)
+      products = user.cart.products;
+      return stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: products.map(product => {
+          return {
+            name: product.productId.title,
+            description: product.productId.description,
+            amount: product.productId.price * 100,
+            currency: 'usd',
+            quantity: product.quantity
+          };
+        }),
+        // http://localhost:3000/checkout/success
+        success_url:
+          req.protocol + '://' + req.get('host') + '/checkout/success',
+        // http://localhost:3000/checkout/cancel
+        cancel_url:
+          req.protocol + '://' + req.get('host') + '/checkout/cancel',
       });
-    }).catch(err => forwardError(err, next));
+    })
+    .then(session => res.render('shop/checkout', {
+      title: 'Checkout',
+      path: null,
+      products,
+      totalPrice: products.reduce((price, product) => {
+        return price + product.quantity * product.productId.price;
+      }, 0),
+      sessionId: session.id
+    }))
+    .catch(err => forwardError(err, next));
 };
 
 exports.postOrder = (req, res, next) => {
