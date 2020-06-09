@@ -5,7 +5,7 @@ const Product = require('./models/product');
 const ITEMS_PER_PAGE = 2;
 
 const fetchAllProducts = (file, title, path, req, res, next, condition = {}) => {
-  const page = req.query.page;
+  const page = +req.query.page;
   let totalProducts;
 
   Product.find(condition).countDocuments()

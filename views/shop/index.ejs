@@ -30,7 +30,9 @@
       <% } %>
     </div>
     <section class="pagination">
-      <a href="/?page=1">1</a>
+      <% if(currentPage !== 1 ) { %>
+        <a href="/?page=1">1</a>
+      <% } %>
       <a href="/?page=<%= currentPage %>" class="active"><%= currentPage %></a>
     </section>
   <% } else { %>
