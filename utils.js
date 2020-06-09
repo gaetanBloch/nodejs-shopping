@@ -2,10 +2,10 @@ const fs = require('fs');
 
 const Product = require('./models/product');
 
-const ITEMS_PER_PAGE = 2;
+const ITEMS_PER_PAGE = 1;
 
 const fetchAllProducts = (file, title, path, req, res, next, condition = {}) => {
-  const page = +req.query.page;
+  let page = +req.query.page || 1;
   let totalProducts;
 
   Product.find(condition).countDocuments()
@@ -23,8 +23,8 @@ const fetchAllProducts = (file, title, path, req, res, next, condition = {}) => 
       hasNextPage: ITEMS_PER_PAGE * page < totalProducts,
       hasPreviousPage: page > 1,
       nextPage: page + 1,
+      previousPage: page - 1,
       lastPage: Math.ceil(totalProducts / ITEMS_PER_PAGE)
-
     }))
     .catch(err => forwardError(err, next));
 };
