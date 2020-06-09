@@ -62,6 +62,13 @@ exports.postCartDeleteProduct = (req, res, next) => {
     .catch(err => forwardError(err, next));
 };
 
+exports.getCheckout = (req, res, next) => {
+  res.render('shop/checkout', {
+    title: 'Checkout',
+    path: null
+  });
+};
+
 exports.postOrder = (req, res, next) => {
   req.user
     .populate('cart.products.productId')
@@ -158,7 +165,7 @@ exports.getInvoice = (req, res, next) => {
           prod.product.price
         );
         totalPrice += prod.product.price * prod.quantity;
-      })
+      });
       pdfDoc.text(' ');
       pdfDoc.fontSize(18).text('Total Price: $' + totalPrice);
 
