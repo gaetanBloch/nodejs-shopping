@@ -19,8 +19,8 @@
     <button class="btn" id="order-btn">ORDER</button>
     <script src="https://js.stripe.com/v3/"></script>
     <script>
-      const stripe = Stripe('pk_test_51GsE8QKgkkR5AU1871NLWPSF3PtXLrlZpwoocMiVRLdvcoLOYHrlPJz5' +
-        'PqfhfnEhiUMtHUcbfBhM4I6kTn6CWPct00vKmVYTXC');
+      const stripe = Stripe('pk_test_51GsE8QKgkkR5AU1871NLWPSF3PtXLrlZpwoocM' +
+        'iVRLdvcoLOYHrlPJz5PqfhfnEhiUMtHUcbfBhM4I6kTn6CWPct00vKmVYTXC');
       const orderButton = document.getElementById('order-btn');
       orderButton.addEventListener('click', () => {
         stripe.redirectToCheckout({ sessionId: '<%= sessionId %>'})
