@@ -71,11 +71,13 @@ exports.getCheckout = (req, res, next) => {
       res.render('shop/checkout', {
         title: 'Checkout',
         path: null,
-        products
+        products,
+        totalPrice: products.reduce((price, product) => {
+          return price + product.quantity * product.productId.price;
+        }, 0)
       });
     }).catch(err => forwardError(err, next));
 };
-
 
 exports.postOrder = (req, res, next) => {
   req.user
@@ -173,7 +175,7 @@ exports.getInvoice = (req, res, next) => {
           prod.product.price
         );
         totalPrice += prod.product.price * prod.quantity;
-      })
+      });
       pdfDoc.text(' ');
       pdfDoc.fontSize(18).text('Total Price: $' + totalPrice);
 
