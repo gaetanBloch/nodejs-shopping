@@ -102,7 +102,7 @@ exports.getCheckout = (req, res, next) => {
     .catch(err => forwardError(err, next));
 };
 
-exports.postOrder = (req, res, next) => {
+exports.getCheckoutSuccess = (req, res, next) => {
   req.user
     .populate('cart.products.productId')
     .execPopulate()
