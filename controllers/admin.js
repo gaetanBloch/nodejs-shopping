@@ -165,6 +165,10 @@ exports.deleteProduct = (req, res, next) => {
       deleteFile(product.imageUrl);
       return Product.deleteOne({ _id: productId, userId: req.user._id });
     })
-    .then(() => res.redirect('/admin/products'))
-    .catch(err => forwardError(err, next));
+    .then(() => res.status(200).json({
+      message: 'Success!'
+    }))
+    .catch(err => res.status(500).json({
+      message: 'Deleting product failed!'
+    }));
 };
