@@ -21,7 +21,7 @@ router.get('/checkout', isAuth, shopController.getCheckout);
 
 router.get('/checkout/success', isAuth, shopController.getCheckoutSuccess);
 
-router.get('/checkout/cancel', isAuth, shopController.getCheckoutCancel);
+router.get('/checkout/cancel', isAuth, shopController.getCheckout);
 
 router.post('/create-order', isAuth, shopController.postOrder);
 
