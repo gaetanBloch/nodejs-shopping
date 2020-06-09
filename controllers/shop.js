@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const stripe = require('stripe')('sk_test_51GsE8QKgkkR5AU18xKwvtCEEeEQld8v' +
+  'gFYY43scqWJQGPt4enina7kkUsY53qwVUoifejDzs7QqH3sk3keJ4PllH00KpeSvyLc');
 
 const PDFDocument = require('pdfkit');
 
@@ -63,6 +65,7 @@ exports.postCartDeleteProduct = (req, res, next) => {
 };
 
 exports.getCheckout = (req, res, next) => {
+
   req.user
     .populate('cart.products.productId')
     .execPopulate()
