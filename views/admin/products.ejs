@@ -25,7 +25,7 @@
                class="btn">Edit</a>
             <input type="hidden" value="<%= product._id %>" name="id">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-            <button class="btn" type="button" onclick="deleteProduct()">Delete</button>
+            <button class="btn" type="button" onclick="deleteProduct(this)">Delete</button>
           </div>
         </article>
       <% } %>
