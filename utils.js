@@ -19,7 +19,7 @@ const fetchAllProducts = (file, title, path, req, res, next, condition = {}) => 
       products,
       title,
       path,
-      totalProducts,
+      currentPage: page,
       hasNextPage: ITEMS_PER_PAGE * page < totalProducts,
       hasPreviousPage: page > 1,
       nextPage: page + 1,

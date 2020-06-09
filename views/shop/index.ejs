@@ -31,7 +31,7 @@
     </div>
     <section class="pagination">
       <a href="/?page=1">1</a>
-      <a href="/?page=2">2</a>
+      <a href="/?page=<%= currentPage %>" class="active"><%= currentPage %></a>
     </section>
   <% } else { %>
     <h1>No Products to display...</h1>
