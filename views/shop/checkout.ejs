@@ -16,7 +16,22 @@
   </ul>
   <h2 class="centered">Total Price: $<%= totalPrice %></h2>
   <div class="centered">
+    <button class="btn" id="order-btn">ORDER</button>
     <script src="https://js.stripe.com/v3/"></script>
+    <script>
+      const stripe = Stripe('pk_test_51GsE8QKgkkR5AU1871NLWPSF3PtXLrlZpwoocMiVRLdvcoLOYHrlPJz5' +
+        'PqfhfnEhiUMtHUcbfBhM4I6kTn6CWPct00vKmVYTXC');
+      const orderButton = document.getElementById('order-btn');
+      orderButton.addEventListener('click', () => {
+        stripe.redirectToCheckout({ sessionId: '<%= sessionId %>'})
+          .then(function (result) {
+            // If `redirectToCheckout` fails due to a browser or network
+            // error, display the localized error message to your customer
+            // using `result.error.message`.
+            console.log(result.error.message);
+          });
+      });
+    </script>
   </div>
 </main>
 
