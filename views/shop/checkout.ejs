@@ -5,7 +5,15 @@
 <%- include('../includes/navigation.ejs') %>
 
 <main>
-
+  <ul class="cart__item-list">
+    <% products.forEach((product) => { %>
+      <li class="cart__item">
+        <h1><%= product.productId.title %></h1>
+        <h2>Quantity: <%= product.quantity %></h2>
+      </li>
+    <% }) %>
+  </ul>
+  <h2 class="centered">Total Price: $<%= totalPrice %></h2>
 </main>
 
 <%- include('../includes/end.ejs') %>

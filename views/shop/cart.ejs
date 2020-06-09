@@ -4,23 +4,23 @@
 </head>
 
 <body>
-  <%- include('../includes/navigation.ejs') %>
+<%- include('../includes/navigation.ejs') %>
 
-  <main>
-    <% if(products.length > 0) { %>
+<main>
+  <% if(products.length > 0) { %>
     <ul class="cart__item-list">
       <% products.forEach((product) => { %>
-      <li class="cart__item">
-        <h1><%= product.productId.title %></h1>
-        <h2>Quantity: <%= product.quantity %></h2>
-        <form action="cart/delete-item" method="POST">
-          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-          <input type="hidden"
-                 value="<%= product.productId._id %>" 
-                 name="productId">
-          <button class="btn danger" type="submit">Delete</button>
-        </form>
-      </li>
+        <li class="cart__item">
+          <h1><%= product.productId.title %></h1>
+          <h2>Quantity: <%= product.quantity %></h2>
+          <form action="cart/delete-item" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <input type="hidden"
+                   value="<%= product.productId._id %>"
+                   name="productId">
+            <button class="btn danger" type="submit">Delete</button>
+          </form>
+        </li>
       <% }) %>
     </ul>
     <div class="centered">
@@ -29,9 +29,9 @@
         <button type="submit" class="btn">Order Now</button>
       </form>
     </div>
-    <% } else { %>
+  <% } else { %>
     <h1>Your Cart is empty...</h1>
-    <% } %>
-  </main>
+  <% } %>
+</main>
 
-  <%- include('../includes/end.ejs') %>
+<%- include('../includes/end.ejs') %>
