@@ -16,8 +16,7 @@ const errorController = require('./controllers/error');
 const User = require('./models/user');
 const { forwardError } = require('./utils');
 
-const MONGODB_URI = 'mongodb+srv://gbloch:gaetan.bloch@' +
-  'cluster0-hcscb.mongodb.net/shop?retryWrites=true&w=majority';
+const MONGODB_URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PWD}@cluster0-hcscb.mongodb.net/${process.env.MONG0_DB}?retryWrites=true&w=majority`;
 
 const app = express();
 const store = new MongoDbSessionStore({
@@ -95,8 +94,9 @@ mongoose
   .connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Successfully connected to MongoDb...');
-    app.listen(3000, () => {
-      console.log('Listening to port 3000...');
+    const port = process.env.PORT || 3000;
+    app.listen(port, () => {
+      console.log(`Listening to port ${port}...`);
     });
   })
   .catch((err) => console.log(err));

@@ -12,7 +12,6 @@ const isEmail = () => {
   return body('email')
     .isEmail()
     .withMessage('Please enter a valid email.')
-    .normalizeEmail();
 };
 
 const isPassword = () => {

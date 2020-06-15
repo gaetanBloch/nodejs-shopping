@@ -1,0 +1,9 @@
+{
+  "env": {
+    "MONGO_USER": "gbloch",
+    "MONGO_PWD": "gaetan.bloch",
+    "MONGO_DB": "shop",
+    "PORT": 3000,
+    "STRIPE_KEY": "sk_test_51GsE8QKgkkR5AU18xKwvtCEEeEQld8vgFYY43scqWJQGPt4enina7kkUsY53qwVUoifejDzs7QqH3sk3keJ4PllH00KpeSvyLc"
+  }
+}
