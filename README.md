@@ -14,3 +14,33 @@ This application was built using [Node.js 14](https://nodejs.org/en/), [Express]
 6. Run `npm install`
 7. Run `npm start`
 8. Visit the website http://localhost:3000/ on your favourite browser
+
+## Application
+
+### Signup
+
+![Signup](https://i.imgur.com/ugZY2Dr.png)
+
+### Login
+
+![Login](https://i.imgur.com/OWAsmFf.png)
+
+### Shopping List
+
+![Shopping List](https://i.imgur.com/ygCs5Iq.png)
+
+### Shopping List Pagination
+
+![Shopping List Pagination](https://i.imgur.com/vVH8HXW.png)
+
+### Add Product
+
+![Add Product](https://i.imgur.com/dyHFrnJ.png)
+
+### Shopping List Admin
+
+![Shoppîng List Admin](https://i.imgur.com/N4vRGph.png)
+
+### Edit Product
+
+![Edit Product](https://i.imgur.com/XTbXF2E.png)
