@@ -55,12 +55,12 @@ This application was built using [Node.js 14](https://nodejs.org/en/), [Express]
 
 ### Order Payment
 
-![Order Payment](https://imgur.com/kRL5YU1)
+![Order Payment](https://imgur.com/kRL5YU1.png)
 
 ### Passed Orders Summary
 
-![Orders Summary](https://imgur.com/9VJR4Xc)
+![Orders Summary](https://imgur.com/9VJR4Xc.png)
 
 ### Order invoice
 
-![Order invoice](https://imgur.com/b8pqelC)
+![Order invoice](https://imgur.com/b8pqelC.png)
