@@ -155,20 +155,15 @@ exports.postEditProduct = (req, res, next) => {
     .catch(err => forwardError(err, next));
 };
 
-exports.deleteProduct = (req, res, next) => {
-  const productId = req.params.productId
-  Product.findById(productId)
+exports.postDeleteProduct = (req, res, next) => {
+  Product.findById(req.body.id)
     .then(product => {
       if (!product) {
-        return forwardError('No Product for id = ' + productId);
+        return forwardError('No Product for id = ' + req.body.id);
       }
       deleteFile(product.imageUrl);
-      return Product.deleteOne({ _id: productId, userId: req.user._id });
+      return Product.deleteOne({ _id: req.body.id, userId: req.user._id });
     })
-    .then(() => res.status(200).json({
-      message: 'Success!'
-    }))
-    .catch(err => res.status(500).json({
-      message: 'Deleting product failed!'
-    }));
+    .then(() => res.redirect('/admin/products'))
+    .catch(err => forwardError(err, next));
 };

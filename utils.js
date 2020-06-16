@@ -2,7 +2,7 @@ const fs = require('fs');
 
 const Product = require('./models/product');
 
-const ITEMS_PER_PAGE = 1;
+const ITEMS_PER_PAGE = 2;
 
 const fetchAllProducts = (file, title, path, req, res, next, condition = {}) => {
   let page = +req.query.page || 1;
