@@ -44,3 +44,23 @@ This application was built using [Node.js 14](https://nodejs.org/en/), [Express]
 ### Edit Product
 
 ![Edit Product](https://i.imgur.com/XTbXF2E.png)
+
+### Cart Summary
+
+![Cart](https://i.imgur.com/TXY9vq7.png)
+
+### Cart Checkout
+
+![Cart Checkout](https://i.imgur.com/qU3vKw2.png)
+
+### Order Payment
+
+![Order Payment](https://imgur.com/kRL5YU1)
+
+### Passed Orders Summary
+
+![Orders Summary](https://imgur.com/9VJR4Xc)
+
+### Order invoice
+
+![Order invoice](https://imgur.com/b8pqelC)
