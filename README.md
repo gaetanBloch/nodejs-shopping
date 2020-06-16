@@ -25,6 +25,10 @@ This application was built using [Node.js 14](https://nodejs.org/en/), [Express]
 
 ![Login](https://i.imgur.com/OWAsmFf.png)
 
+### Reset Password
+
+![Reset Password](https://i.imgur.com/GIJbq4B.png)
+
 ### Shopping List
 
 ![Shopping List](https://i.imgur.com/ygCs5Iq.png)
