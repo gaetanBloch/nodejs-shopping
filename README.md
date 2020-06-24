@@ -39,7 +39,7 @@ This application was built using [Node.js 14](https://nodejs.org/en/), [Express]
 
 ### Responsive Shopping List
 
-![Responsive1](https://i.imgur.com/irFtMIB.png) & 
+![Responsive1](https://i.imgur.com/irFtMIB.png)
 ![Responsive2](https://i.imgur.com/P7FploU.png)
 
 ### Add Product
